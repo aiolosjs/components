@@ -11,5 +11,5 @@
 /coverage
 /.docz
 /.doc
-/.DS_Store
+.DS_Store
 /.eslintcache
