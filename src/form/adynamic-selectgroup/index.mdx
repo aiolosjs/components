@@ -1,0 +1,55 @@
+---
+route: /adynamic-selectgroup
+name: ADynamicSelectGroup
+menu: Components
+edit: false
+sidebar: true
+---
+
+import JackBox from '@aiolosjs/jackbox';
+
+import Demo1 from './demo/demo1';
+import Demo1CodeTsx from '!raw-loader!./demo/demo1.tsx';
+
+import Demo2 from './demo/demo2';
+import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
+
+import Demo3 from './demo/demo3';
+import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
+
+# ADynamicSelectGroup
+
+## 代码演示
+
+### 默认用法
+
+<JackBox tsCode={Demo1CodeTsx} demoName="基本用法">
+  <Demo1 />
+</JackBox>
+
+### Form.Item 混合使用
+
+<JackBox tsCode={Demo2CodeTsx} demoName="基本用法">
+  <Demo2 />
+</JackBox>
+
+
+
+### 公共属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| name | form 中 id | string | true |
+| form | Form.create()(组件) 高阶属性 | AntdFormItemProps | true |
+| label | Form.Item label 属性 | string \| ReactNode | false |
+| initialValue | 子节点的初始值，类型、可选值均由子节点决定 | any | false |
+| rules | 校验规则, [参考文档](https://ant.design/components/form-cn/#%E6%A0%A1%E9%AA%8C%E8%A7%84%E5%88%99) | object[] | false |
+| formItemProps | Form.Item 属性[参考文档](https://ant.design/components/form-cn/#Form.Item) | object | false |
+| fieldDecoratorOptions | getFieldDecorator options 参数 [参考文档](https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-%E5%8F%82%E6%95%B0>>) | object | false |
+
+### 组件属性
+
+| 参数    | 说明         | 类型           | required       |
+| ------- | ------------ | -------------- | -------------- |
+| action  | 接口地址,如果为null ，则不会获取数据     | string\|null   | true           |
+| asyncFn | 异步请求函数 | (...args: Args | any)=> Promise | false |

@@ -1,0 +1,15 @@
+/yarn.lock
+/package-lock.json
+/yarn-error.log
+/dist/
+/es/
+/lib/
+/.docz
+/node_modules
+/.history
+/.idea
+/coverage
+/.docz
+/.doc
+/.DS_Store
+/.eslintcache

@@ -1,0 +1,82 @@
+---
+route: /adynamiccascader
+name: 'ADynamicCascader'
+menu: Components
+edit: false
+sidebar: true
+---
+
+import JackBox from '@aiolosjs/jackbox';
+
+import Demo1 from './demo/demo1';
+import Demo1CodeTsx from '!raw-loader!./demo/demo1.tsx';
+
+import Demo2 from './demo/demo2';
+import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
+
+import Demo3 from './demo/demo3';
+import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
+
+import Demo4 from './demo/demo4';
+import Demo4CodeTsx from '!raw-loader!./demo/demo4.tsx';
+
+import Demo5 from './demo/demo5';
+import Demo5CodeTsx from '!raw-loader!./demo/demo5.tsx';
+
+# ADynamicCascader
+
+## 代码演示
+
+### 默认用法
+
+<JackBox tsCode={Demo1CodeTsx} demoName="默认用法">
+  <Demo1 />
+</JackBox>
+
+## 设定初始值
+
+<JackBox tsCode={Demo2CodeTsx} demoName="设定初始值">
+  <Demo2 />
+</JackBox>
+
+## 默认初始第一列
+
+<JackBox tsCode={Demo3CodeTsx} demoName="默认初始第一列">
+  <Demo3 />
+</JackBox>
+
+## 自定义数据加载 url 和参数
+
+<JackBox tsCode={Demo4CodeTsx} demoName="自定义数据加载url和参数">
+  <Demo4 />
+</JackBox>
+
+## formatter loadData
+
+<JackBox tsCode={Demo5CodeTsx} demoName="formatter loadData">
+  <Demo5 />
+</JackBox>
+
+### 公共属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| name | form 中 id | string | true |
+| form | Form.create()(组件) 高阶属性 | AntdFormItemProps | true |
+| label | Form.Item label 属性 | string \| ReactNode | false |
+| initialValue | 子节点的初始值，类型、可选值均由子节点决定 | any | false |
+| rules | 校验规则, [参考文档](https://ant.design/components/form-cn/#%E6%A0%A1%E9%AA%8C%E8%A7%84%E5%88%99) | object[] | false |
+| formItemProps | Form.Item 属性[参考文档](https://ant.design/components/form-cn/#Form.Item) | object | false |
+| fieldDecoratorOptions | getFieldDecorator options 参数 [参考文档](<https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-%E5%8F%82%E6%95%B0>) | object | false |
+
+### 组件属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| widgetProps | Cascader 组件默认属性 [参考文档](https://ant.design/components/cascader-cn/#API) | object | false |
+| selectOptions | Cascader 组件下拉选项值,默认初始第一列，否则通过接口获取 | CascaderOptionType[] | false |
+| loadDataOptions | 获取每一列数据的接口配置,action 为接口地址，queryKey 为查询 key,如果无需申请接口，数组当前项设置为 null,数组的长度和 Cascader 列数一致，[用法](adynamiccascader#默认初始第一列) | array[{action:string,queryKey:string}] | false |
+| customLoadDataParams | 自定义每一列数据的查询接口格式，[用法](adynamiccascader#自定义数据加载-url-和参数),position参数为下一列位置 | (selectedOptions,position)=>string\|undefined | false |
+| formatter | 格式化接口返回的数据格式 | function(nodes:any): CascaderOptionType[]  | false |
+| asyncFn | 异步请求函数 | (...args: Args | any)=> Promise | false |
+
