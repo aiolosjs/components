@@ -2,6 +2,8 @@
 /package-lock.json
 /yarn-error.log
 /dist/
+/doc.zip
+/doc/
 /es/
 /lib/
 /.docz
@@ -10,6 +12,8 @@
 /.idea
 /coverage
 /.docz
-/.doc
+.doc
+
+
 .DS_Store
 /.eslintcache

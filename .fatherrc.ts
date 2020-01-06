@@ -1,7 +1,7 @@
 import { IBundleOptions } from 'father';
 
 const config = {
-  dest: '.doc',
+  dest: 'doc',
   base: '/',
   files: './src/**/*.{md,markdown,mdx}',
   themeConfig: {
