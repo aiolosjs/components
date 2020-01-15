@@ -10,6 +10,7 @@ import JackBox from '@aiolosjs/jackbox';
 
 import Demo1 from './demo/demo1';
 import Demo1CodeTsx from '!raw-loader!./demo/demo1.tsx';
+import Demo1CodeJsx from '!raw-loader!./demo/demo1.jsx';
 
 import Demo2 from './demo/demo2';
 import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
@@ -25,7 +26,7 @@ import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
 
 ### 默认用法
 
-<JackBox tsCode={Demo1CodeTsx} demoName="基本用法">
+<JackBox jsCode={Demo1CodeJsx} tsCode={Demo1CodeTsx} demoName="基本用法">
   <Demo1 />
 </JackBox>
 
@@ -48,4 +49,4 @@ import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
 | 参数    | 说明         | 类型           | required       |
 | ------- | ------------ | -------------- | -------------- |
 | action  | 接口地址,如果为null ，则不会获取数据     | string\|null   | true           |
-| asyncFn | 异步请求函数 | (...args: Args | any)=> Promise | false |
+| asyncFn | 接口回调函数 | (action: string)=> Promise | false |

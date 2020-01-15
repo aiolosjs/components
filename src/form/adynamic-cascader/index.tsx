@@ -7,7 +7,7 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export interface LoadDataOptions {
   queryKey?: string;
-  action: string;
+  action: string | null;
 }
 export interface ADynamicCascaderProps extends Omit<ACascaderProps, 'selectOptions'> {
   selectOptions?: CascaderOptionType[];

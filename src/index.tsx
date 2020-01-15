@@ -17,15 +17,3 @@ export { default as ATimePicker } from './form/atimepicker';
 export { default as ATree } from './form/atree';
 export { default as ATreeSelect } from './form/atreeselect';
 export { default as AUpload } from './form/aupload';
-
-
-
-
-
-
-
-
-
-
-
-
