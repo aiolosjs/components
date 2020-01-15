@@ -10,15 +10,19 @@ import JackBox from '@aiolosjs/jackbox';
 
 import Demo1 from './demo/demo1';
 import Demo1CodeTsx from '!raw-loader!./demo/demo1.tsx';
+import Demo1CodeJsx from '!raw-loader!./demo/demo1.jsx';
 
 import Demo2 from './demo/demo2';
 import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
+import Demo2CodeJsx from '!raw-loader!./demo/demo2.jsx';
 
 import Demo3 from './demo/demo3';
 import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
+import Demo3CodeJsx from '!raw-loader!./demo/demo3.jsx';
 
 import Demo4 from './demo/demo4';
 import Demo4CodeTsx from '!raw-loader!./demo/demo4.tsx';
+import Demo4CodeJsx from '!raw-loader!./demo/demo4.jsx';
 
 # ADynamicTreeSelect
 
@@ -26,25 +30,25 @@ import Demo4CodeTsx from '!raw-loader!./demo/demo4.tsx';
 
 ### 默认用法
 
-<JackBox tsCode={Demo1CodeTsx} demoName="基本用法">
+<JackBox jsCode={Demo1CodeJsx} tsCode={Demo1CodeTsx} demoName="基本用法">
   <Demo1 />
 </JackBox>
 
 ### 可勾选
 
-<JackBox tsCode={Demo2CodeTsx} demoName="使用勾选框实现多选功能">
+<JackBox jsCode={Demo2CodeJsx} tsCode={Demo2CodeTsx} demoName="使用勾选框实现多选功能">
   <Demo2 />
 </JackBox>
 
 ### treeCheckParentStrictly勾选
 
-<JackBox tsCode={Demo3CodeTsx} demoName="treeCheckParentStrictly勾选">
+<JackBox jsCode={Demo3CodeJsx} tsCode={Demo3CodeTsx} demoName="treeCheckParentStrictly勾选">
   <Demo3 />
 </JackBox>
 
 ### 数据格式化
 
-<JackBox tsCode={Demo4CodeTsx} demoName="数据格式化">
+<JackBox jsCode={Demo4CodeJsx} tsCode={Demo4CodeTsx} demoName="数据格式化">
   <Demo4 />
 </JackBox>
 
@@ -65,4 +69,4 @@ import Demo4CodeTsx from '!raw-loader!./demo/demo4.tsx';
 | 参数    | 说明         | 类型           | required       |
 | ------- | ------------ | -------------- | -------------- |
 | action  | 接口地址,如果为null ，则不会获取数据     | string\|null   | true           |
-| asyncFn | 异步请求函数 | (...args: Args | any)=> Promise | false |
+| asyncFn | 接口回调函数 | (action: string)=> Promise | false |

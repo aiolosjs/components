@@ -10,9 +10,11 @@ import JackBox from '@aiolosjs/jackbox';
 
 import Demo1 from './demo/demo1';
 import Demo1CodeTsx from '!raw-loader!./demo/demo1.tsx';
+import Demo1CodeJsx from '!raw-loader!./demo/demo1.jsx';
 
 import Demo2 from './demo/demo2';
 import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
+import Demo2CodeJsx from '!raw-loader!./demo/demo2.jsx';
 
 # ARadioGroup
 
@@ -20,13 +22,13 @@ import Demo2CodeTsx from '!raw-loader!./demo/demo2.tsx';
 
 ### 默认用法
 
-<JackBox tsCode={Demo1CodeTsx} demoName="默认用法">
+<JackBox jsCode={Demo1CodeJsx} tsCode={Demo1CodeTsx} demoName="默认用法">
   <Demo1 />
 </JackBox>
 
 ## ARadioGroup 和 Form.Item 混合使用
 
-<JackBox tsCode={Demo2CodeTsx} demoName="混合使用">
+<JackBox jsCode={Demo2CodeJsx} tsCode={Demo2CodeTsx} demoName="混合使用">
   <Demo2 />
 </JackBox>
 

@@ -26,6 +26,7 @@ import Demo4CodeJsx from '!raw-loader!./demo/demo4.jsx';
 
 import Demo5 from './demo/demo5';
 import Demo5CodeTsx from '!raw-loader!./demo/demo5.tsx';
+import Demo5CodeJsx from '!raw-loader!./demo/demo5.jsx';
 
 # AInput
 
@@ -45,7 +46,7 @@ import Demo5CodeTsx from '!raw-loader!./demo/demo5.tsx';
 
 ## AInput.Phone 的使用
 
-<JackBox tsCode={Demo3CodeTsx} vjsCode={Demo3CodeJsx} demoName="手机号">
+<JackBox tsCode={Demo3CodeTsx} jsCode={Demo3CodeJsx} demoName="手机号">
   <Demo3 />
 </JackBox>
 
@@ -58,7 +59,7 @@ import Demo5CodeTsx from '!raw-loader!./demo/demo5.tsx';
 
 ## AInput.TextArea 的使用
 
-<JackBox tsCode={Demo5CodeTsx}  demoName="数字">
+<JackBox tsCode={Demo5CodeTsx} jsCode={Demo5CodeJsx} demoName="数字">
   <Demo5 />
 </JackBox>
 
@@ -74,9 +75,28 @@ import Demo5CodeTsx from '!raw-loader!./demo/demo5.tsx';
 | formItemProps | Form.Item 属性[参考文档](https://ant.design/components/form-cn/#Form.Item) | object | false |
 | fieldDecoratorOptions | getFieldDecorator options 参数 [参考文档](<https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-%E5%8F%82%E6%95%B0>>) | object | false |
 
-### 组件属性
+### AInput组件属性
 
 | 参数 | 说明 | 类型 | required |
 | --- | --- | --- | --- |
-| selectOptions | Select 组件下拉选项值 | object[{key: string \| number; value: string \| number; disabled?: boolean;[k: string]: any;}] | true |
-| widgetProps | Select 组件默认属性 [参考文档](https://ant.design/components/select-cn/#Select-props) | object | false |
+| widgetProps | Input 组件默认属性 [参考文档](https://ant.design/components/input-cn/#Input) | object | false |
+
+### AInput.Password组件属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| widgetProps | Input 组件默认属性 [参考文档](https://ant.design/components/input-cn/#Input.Password-(3.12.0-%E4%B8%AD%E6%96%B0%E5%A2%9E)) | object | false |
+
+### AInput.Number组件属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| widgetProps | Input 组件默认属性 [参考文档](https://ant.design/components/input-number-cn/#API) | object | false |
+
+### AInput.TextArea组件属性
+
+| 参数 | 说明 | 类型 | required |
+| --- | --- | --- | --- |
+| widgetProps | Input 组件默认属性 [参考文档](https://ant.design/components/input-cn/#Input.TextArea) | object | false |
+
+

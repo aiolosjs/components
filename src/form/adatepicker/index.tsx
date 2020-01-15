@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, DatePicker, Input } from 'antd';
+import { Form, DatePicker } from 'antd';
 import { DatePickerProps } from 'antd/lib/date-picker/interface';
 import { IBaseWidgetProps } from '../types';
 import MonthPicker from './monthpicker';
