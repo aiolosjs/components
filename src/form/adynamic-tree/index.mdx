@@ -48,5 +48,5 @@ import Demo3CodeTsx from '!raw-loader!./demo/demo3.tsx';
 
 | 参数    | 说明         | 类型           | required       |
 | ------- | ------------ | -------------- | -------------- |
-| action  | 接口地址,如果为null ，则不会获取数据     | string\|null   | true           |
+| action  | 接口地址,如果为null ，则不会获取数据     | ()=>string \| string\|null   | true           |
 | asyncFn | 接口回调函数 | (action: string)=> Promise | false |

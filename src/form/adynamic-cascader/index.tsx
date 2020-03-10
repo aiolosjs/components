@@ -7,12 +7,11 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export interface LoadDataOptions {
   queryKey?: string;
-  action: string | null;
+  action: string;
 }
 export interface ADynamicCascaderProps extends Omit<ACascaderProps, 'selectOptions'> {
   selectOptions?: CascaderOptionType[];
   loadDataOptions?: Array<LoadDataOptions | null | undefined>;
-  formatter?: (value: Array<any>) => Array<CascaderOptionType>;
   customLoadDataParams?: (
     selectedOptions?: CascaderOptionType[],
     position?: number,

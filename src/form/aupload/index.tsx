@@ -62,7 +62,7 @@ const AUpload: React.SFC<AUploadProps> = ({
   const { listType = 'picture', ...widgetPropsRest } = widgetProps;
 
   const lightBoxRef = useRef<any>();
-  const fileListLen = useRef<number>(0);
+  const fileListLen = useRef(0);
   const [normFileList, setNormFileList] = useState<UploadFileProps[]>([]);
 
   useEffect(() => {

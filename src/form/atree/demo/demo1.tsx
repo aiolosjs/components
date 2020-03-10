@@ -76,6 +76,10 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     });
   }
 
+  function handleClear() {
+    form.setFieldsValue({ demo2: undefined });
+  }
+
   return (
     <Form {...layout} onSubmit={handleSubmit}>
       <ATree
@@ -92,18 +96,15 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         initialValue={['0-0-0']}
         widgetProps={{
           style: styles,
-          checkable: true,
-          // autoExpandParent:true,
-          // checkStrictly:true
-          // checkStrictly:true,
-          // showCheckedStrategy: TreeSelect.SHOW_ALL,
-          // onChange,
         }}
       />
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
         <Button type="primary" htmlType="submit">
           确定
+        </Button>
+        <Button style={{ marginLeft: 12 }} onClick={handleClear}>
+          clear
         </Button>
       </Form.Item>
     </Form>

@@ -7,8 +7,10 @@ import ATree, { ATreeProps } from '../atree';
 
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
+type actionType = (() => string) | string | null;
+
 export interface ADynamicTreeProps extends Omit<ATreeProps, 'treeData'> {
-  action: string | null;
+  action: actionType;
   asyncFn?: (action: string) => Promise<TreeNodeNormal[]>;
 }
 
@@ -21,6 +23,7 @@ const ADynamicTree: React.FC<ADynamicTreeProps> = ({
   ...rest
 }) => {
   const { data = [] } = useSWR<TreeNodeNormal[]>(action, asyncFn || fetch);
+
 
   return (
     <ATree form={form} name={name} treeData={data} widgetProps={{ ...widgetProps }} {...rest} />

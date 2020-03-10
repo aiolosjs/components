@@ -2,55 +2,6 @@ import React from 'react';
 import { Form, Button } from 'antd';
 import ATree from '..';
 
-const treeData = [
-  {
-    title: 'Node1',
-    key: '0-0',
-    children: [
-      {
-        title: 'Child Node1',
-        key: '0-0-0',
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-1',
-        disabled: true,
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-2',
-        children: [
-          {
-            title: 'Child Node2-1',
-            key: '0-0-2-1',
-          },
-          {
-            title: 'Child Node2-2',
-            key: '0-0-2-2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Node2',
-    key: '0-1',
-    children: [
-      {
-        title: 'Child Node3',
-        key: '0-1-0',
-      },
-      {
-        title: 'Child Node4',
-        key: '0-1-1',
-      },
-      {
-        title: 'Child Node5',
-        key: '0-1-2',
-      },
-    ],
-  },
-];
 const layout = {
   labelCol: {
     span: 2,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Tag, Button } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
-import ATree from '..';
+import ADynamicTree from '..';
 
 const treeData = [
   {
@@ -78,7 +78,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
 
   return (
     <Form {...layout} onSubmit={handleSubmit}>
-      <ATree
+      <ADynamicTree
         name="demo2"
         label="节点"
         form={form}

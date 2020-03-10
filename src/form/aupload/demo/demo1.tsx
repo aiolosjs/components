@@ -28,6 +28,10 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     });
   }
 
+  function handleClear() {
+    form.resetFields();
+  }
+
   return (
     <ConfigProvider locale={locale}>
       <Form {...layout} onSubmit={handleSubmit}>
@@ -52,6 +56,9 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
           <Button type="primary" htmlType="submit">
             确定
+          </Button>
+          <Button style={{ marginLeft: 12 }} onClick={handleClear}>
+            clear
           </Button>
         </Form.Item>
       </Form>

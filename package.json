@@ -1,6 +1,6 @@
 {
   "name": "@aiolosjs/components",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "antd form library",
   "keywords": [
     "antd form",
@@ -24,7 +24,7 @@
     "build": "node ./scripts/clean-old-build.js && father build && tsc --declarationDir ./lib && tsc --declarationDir ./es && node ./scripts/build-wind-up.js",
     "js": "node ./.ts2js.js",
     "build:doc": "father doc build",
-    "prettier": "prettier -c --write \"**/*\"",
+    "prettier": "prettier -c --write \"src/**\"",
     "lint": "npm run lint:js",
     "lint-staged:js": "eslint --ext .jsx,.ts,.tsx ./src",
     "lint:fix": "eslint --fix --cache --ext .jsx,.ts,.tsx --format=pretty ./src",
@@ -66,7 +66,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "sylvanas": "^0.4.2",
-    "typescript": "3.3.3"
+    "typescript": "^3.5.3"
   },
   "dependencies": {
     "@umijs/hooks": "^1.5.1-beta.0",

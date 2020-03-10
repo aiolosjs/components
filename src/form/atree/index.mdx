@@ -26,7 +26,7 @@ import Demo2CodeJsx from "!raw-loader!./demo/demo2.jsx";
 
 
 
-### 可勾选
+### 可选择
 
 <JackBox jsCode={Demo1CodeJsx} tsCode={Demo1CodeTsx} demoName="使用勾选框实现多选功能">
   <Demo1 />
@@ -60,5 +60,5 @@ import Demo2CodeJsx from "!raw-loader!./demo/demo2.jsx";
 | ------------- | --------------------- | ---------------------------------------------------------------------------------------------- | -------- |
 | widgetProps | treeData组件默认属性 [参考文档](https://ant.design/components/tree-select-cn/#Tree-props) | object              | false    |
 | treeCheckParentStrictly | treeCheckStrictly为true,想通过父节点控制子节点的全选和取消，并且父子节点选中状态不会关联 |       boolean        | false    |
-| formatter | 指定输入框展示值的格式	 |       function(nodes:TreeNode[]): TreeNode[]       | false    |
+| formatter | 指定输入框展示值的格式	 |       function(nodes:any): TreeNode[]       | false    |
 | treeData | treeData组件下拉选项值 | array<{value, title, children, [disabled, disableCheckbox, checkable]}> | true     |

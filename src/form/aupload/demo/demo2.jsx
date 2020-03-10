@@ -49,6 +49,12 @@ const WidgetWithForm = ({ form }) => {
     });
   }
 
+  function handleClear() {
+    form.setFieldsValue({
+      demo2: undefined,
+    });
+  }
+
   return (
     <Form {...layout} onSubmit={handleSubmit}>
       <AUpload
@@ -76,6 +82,14 @@ const WidgetWithForm = ({ form }) => {
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
         <Button type="primary" htmlType="submit">
           确定
+        </Button>
+        <Button
+          style={{
+            marginLeft: 12,
+          }}
+          onClick={handleClear}
+        >
+          clear
         </Button>
       </Form.Item>
     </Form>

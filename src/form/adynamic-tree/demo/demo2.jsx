@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button } from 'antd';
-import ATree from '..';
+import ADynamicTree from '..';
 
 const treeData = [
   {
@@ -79,7 +79,7 @@ const WidgetWithForm = ({ form }) => {
 
   return (
     <Form {...layout} onSubmit={handleSubmit}>
-      <ATree
+      <ADynamicTree
         name="demo2"
         label="节点"
         form={form}

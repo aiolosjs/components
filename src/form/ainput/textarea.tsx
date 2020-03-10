@@ -7,7 +7,7 @@ export interface AInputTextAreaProps extends IBaseWidgetProps {
   widgetProps?: TextAreaProps;
 }
 
-class Password extends React.PureComponent<AInputTextAreaProps> {
+class TextArea extends React.PureComponent<AInputTextAreaProps> {
   static defaultProps = {
     initialValue: undefined,
     widgetProps: {},
@@ -43,4 +43,4 @@ class Password extends React.PureComponent<AInputTextAreaProps> {
   }
 }
 
-export default Password;
+export default TextArea;

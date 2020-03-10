@@ -7,7 +7,7 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export interface ACascaderProps extends IBaseWidgetProps {
   selectOptions: CascaderOptionType[];
-  formatter?: (value: Array<CascaderOptionType>) => Array<CascaderOptionType>;
+  formatter?: (value: any) => Array<CascaderOptionType>;
   widgetProps?: Omit<CascaderProps, 'options'>;
 }
 

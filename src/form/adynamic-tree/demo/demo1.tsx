@@ -1,57 +1,7 @@
 import React from 'react';
 import { Form, Tag, Button } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
-import ATree from '..';
-
-const treeData = [
-  {
-    title: 'Node1',
-    key: '0-0',
-    children: [
-      {
-        title: 'Child Node1',
-        key: '0-0-0',
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-1',
-        disabled: true,
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-2',
-        children: [
-          {
-            title: 'Child Node2-1',
-            key: '0-0-2-1',
-          },
-          {
-            title: 'Child Node2-2',
-            key: '0-0-2-2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Node2',
-    key: '0-1',
-    children: [
-      {
-        title: 'Child Node3',
-        key: '0-1-0',
-      },
-      {
-        title: 'Child Node4',
-        key: '0-1-1',
-      },
-      {
-        title: 'Child Node5',
-        key: '0-1-2',
-      },
-    ],
-  },
-];
+import ADynamicTree from '..';
 
 const layout = {
   labelCol: { span: 2 },
@@ -78,7 +28,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
 
   return (
     <Form {...layout} onSubmit={handleSubmit}>
-      <ATree
+      <ADynamicTree
         name="demo2"
         label="节点"
         form={form}
@@ -88,11 +38,14 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
             message: ' ATree!',
           },
         ]}
-        action="http://yapi.rebornauto.cn/mock/39/tree_node"
+        action={() => 'http://yapi.rebornauto.cn/mock/39/tree_node'}
+        initialValue={['100']}
         widgetProps={{
           style: styles,
-          checkable: true,
-          checkStrictly: false,
+
+          // checkable: true,
+          // checkStrictly: false,
+          // selectable: false,
         }}
       />
 

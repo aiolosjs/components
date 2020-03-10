@@ -11,7 +11,7 @@ const config = {
       { title: 'Github', link: 'https://github.com/aiolosjs/components.git' },
     ],
   },
-}
+};
 
 const options: IBundleOptions = {
   entry: 'src/index.tsx',
@@ -20,16 +20,15 @@ const options: IBundleOptions = {
   umd: {
     name: 'aiolosjsComponents',
     globals: {
-      'react': 'React',
-    }
+      react: 'React',
+    },
   },
   disableTypeCheck: true,
   doc: {
     title: '@aiolosjs/components',
     theme: 'docz-theme-umi-hooks',
-    ignore: ['readme.md', 'changelog.md', 'license.md','license.md'],
-    ...config
-
+    ignore: ['readme.md', 'changelog.md', 'license.md', 'license.md'],
+    ...config,
   },
 
   extraBabelPlugins: [

@@ -72,11 +72,24 @@ import Demo5CodeJsx from '!raw-loader!./demo/demo5.jsx';
 | initialValue | 子节点的初始值，类型、可选值均由子节点决定 | any | false |
 | rules | 校验规则, [参考文档](https://ant.design/components/form-cn/#%E6%A0%A1%E9%AA%8C%E8%A7%84%E5%88%99) | object[] | false |
 | formItemProps | Form.Item 属性[参考文档](https://ant.design/components/form-cn/#Form.Item) | object | false |
-| fieldDecoratorOptions | getFieldDecorator options 参数 [参考文档](<https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-%E5%8F%82%E6%95%B0>) | object | false |
+| fieldDecoratorOptions | getFieldDecorator options 参数 [参考文档](https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-%E5%8F%82%E6%95%B0) | object | false |
 
 ### 组件属性
 
 | 参数 | 说明 | 类型 | required |
 | --- | --- | --- | --- |
-| queryKey | 查询字段名 | string | false |
-| action | 接口地址,如果为null ，则不会获取数据 | string\|null  | true |
+| selectOptions | 默认列的数据 | CascaderOptionType[] | false |
+| loadDataOptions | 数据加载配置 | [LoadDataOptions](#loaddataoptions)[] | true |
+| formatter | 数据格式化 | function(value: any): CascaderOptionType[]  |  false |
+| customLoadDataParams | 自定义请求参数,回调参数position上一列的位置 | (selectedOptions?: CascaderOptionType[],position?: number) => string \| undefined  |  false |
+| asyncFn | 自定义数据请求函数 | (action: string) => Promise<CascaderOptionType[]>  |  false |
+
+### LoadDataOptions
+
+```typescript
+interface LoadDataOptions {
+  queryKey?: string;
+  action: string;
+}
+```
+
