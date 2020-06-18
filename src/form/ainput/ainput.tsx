@@ -11,48 +11,36 @@ export interface AInputProps extends IBaseWidgetProps {
   widgetProps?: InputProps;
 }
 
-type staticComponent = {
-  Password?: typeof Password;
-  Phone?: typeof Phone;
-  Number?: typeof Number;
-  TextArea?: typeof TextArea;
-};
+class AInput extends React.Component<AInputProps> {
+  static Password: typeof Password;
 
-const AInput: React.SFC<AInputProps> & staticComponent = ({
-  name,
-  label,
-  form,
-  widgetProps,
-  formItemProps,
-  rules,
-  initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
+  static Phone: typeof Phone;
 
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<Input {...widgetProps} />)}
-    </Form.Item>
-  );
-};
+  static Number: typeof Number;
 
-AInput.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+  static TextArea: typeof TextArea;
 
-AInput.Password = Password;
-AInput.Phone = Phone;
-AInput.Number = Number;
-AInput.TextArea = TextArea;
+  render() {
+    const {
+      name,
+      label,
+      rules = [],
+      initialValue,
+      formItemProps = {},
+      widgetProps = {},
+    } = this.props;
+    return (
+      <Form.Item
+        name={name}
+        label={label}
+        rules={rules}
+        initialValue={initialValue}
+        {...formItemProps}
+      >
+        <Input {...widgetProps} />
+      </Form.Item>
+    );
+  }
+}
 
 export default AInput;

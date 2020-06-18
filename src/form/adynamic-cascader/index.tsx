@@ -3,16 +3,14 @@ import { CascaderOptionType } from 'antd/lib/cascader';
 import { fetch } from '../../utils';
 import ACascader, { ACascaderProps } from '../acascader';
 
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 export interface LoadDataOptions {
   queryKey?: string;
-  action: string | null;
+  action: string;
 }
 export interface ADynamicCascaderProps extends Omit<ACascaderProps, 'selectOptions'> {
   selectOptions?: CascaderOptionType[];
-  loadDataOptions?: Array<LoadDataOptions | null | undefined>;
-  formatter?: (value: Array<any>) => Array<CascaderOptionType>;
+  loadDataOptions: Array<LoadDataOptions | null | undefined>;
+  formatter?: (value: any) => Array<CascaderOptionType>;
   customLoadDataParams?: (
     selectedOptions?: CascaderOptionType[],
     position?: number,
@@ -36,7 +34,7 @@ const setChildValue = (
 
 const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
   name,
-  form,
+
   initialValue,
   widgetProps,
   loadDataOptions = [],
@@ -52,7 +50,7 @@ const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
     return asyncFn ? asyncFn(params) : fetch<CascaderOptionType[]>(params);
   }
 
-  function formatWrapper(value: Array<any>) {
+  function formatWrapper(value: any): Array<CascaderOptionType> {
     if (formatter) {
       return formatter(value);
     }
@@ -142,7 +140,6 @@ const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
 
   return (
     <ACascader
-      form={form}
       name={name}
       selectOptions={selectOptions}
       initialValue={initialValue}
@@ -150,11 +147,6 @@ const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
       {...rest}
     />
   );
-};
-
-ADynamicCascader.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
 };
 
 export default ADynamicCascader;

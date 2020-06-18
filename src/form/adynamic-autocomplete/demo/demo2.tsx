@@ -1,57 +1,58 @@
-import React from 'react';
-import { Form, AutoComplete, Button } from 'antd';
+/* eslint-disable no-console */
+
+import React, { useState } from 'react';
+import { Form, Button } from 'antd';
 import jsonp from 'jsonp';
-import { FormComponentProps } from 'antd/es/form';
-import ADynamicAutoComplete from '..';
+import { ADynamicAutoComplete } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function asyncFn(params) {
+export default () => {
+  const [form] = Form.useForm();
+
+  function asyncFn(params: string) {
     return new Promise((resolve, reject) => {
-      jsonp(params, (err, data) => {
+      jsonp(params, (err: any, data: any) => {
         if (err) reject(err);
-        resolve(data.result.map(item => item[0]));
+        resolve(data.result.map((item: any) => item[0]));
       });
     });
   }
 
-  function onSearch(value: any) {
-    console.log(value);
-  }
+  const formatter = (data: [] = []) => {
+    return data.map((v) => ({ value: v }));
+  };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
 
-  function formatter(data): string[] {
-    return data;
-  }
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicAutoComplete
         name="demo2"
-        label="节点"
-        form={form}
+        label="选择"
         rules={[
           {
             required: true,
-            message: ' ATree!',
+            message: ' AAutoComplete!',
           },
         ]}
+        widgetProps={{
+          style: styles,
+          placeholder: '请输入',
+        }}
         loadDataOption={{
           queryKey: 'q',
           action: 'https://suggest.taobao.com/sug',
@@ -59,13 +60,9 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
         asyncFn={asyncFn}
         formatter={formatter}
-        widgetProps={{
-          style: styles,
-          onSearch,
-        }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -73,5 +70,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import ACheckboxGroup from '..';
+import { ARadioGroup } from '@aiolosjs/components';
 
 const radioOptions = [
   {
@@ -23,7 +24,7 @@ const radioOptions = [
 ];
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
@@ -31,40 +32,41 @@ const styles: React.CSSProperties = {
   width: 400,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any) {
+    console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
-      <ACheckboxGroup
-        name="demo2"
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
+      <ARadioGroup
+        name="demo1"
         label="省份"
-        form={form}
-        // initialValue={3}
         rules={[
           {
             required: true,
-            message: ' 请选择省份',
+            message: ' ASelect!',
           },
         ]}
         radioOptions={radioOptions}
         widgetProps={{
           style: styles,
+          placeholder: '请选择',
+          onChange,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -73,4 +75,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

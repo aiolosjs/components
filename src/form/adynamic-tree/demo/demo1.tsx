@@ -1,102 +1,54 @@
-import React from 'react';
-import { Form, Tag, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import ATree from '..';
+/* eslint-disable no-console */
 
-const treeData = [
-  {
-    title: 'Node1',
-    key: '0-0',
-    children: [
-      {
-        title: 'Child Node1',
-        key: '0-0-0',
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-1',
-        disabled: true,
-      },
-      {
-        title: 'Child Node2',
-        key: '0-0-2',
-        children: [
-          {
-            title: 'Child Node2-1',
-            key: '0-0-2-1',
-          },
-          {
-            title: 'Child Node2-2',
-            key: '0-0-2-2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Node2',
-    key: '0-1',
-    children: [
-      {
-        title: 'Child Node3',
-        key: '0-1-0',
-      },
-      {
-        title: 'Child Node4',
-        key: '0-1-1',
-      },
-      {
-        title: 'Child Node5',
-        key: '0-1-2',
-      },
-    ],
-  },
-];
+import React from 'react';
+import { Form, Button } from 'antd';
+import { ADynamicTree } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    // console.log(value, node);
+export default () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
-      <ATree
-        name="demo2"
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
+      <ADynamicTree
+        name="demo1"
         label="节点"
-        form={form}
+        action="http://yapi.suxf.cn/mock/84/tree_node"
+        initialValue={['102']}
         rules={[
           {
             required: true,
-            message: ' ATree!',
+            message: ' 请选择节点!',
           },
         ]}
-        action="http://yapi.rebornauto.cn/mock/39/tree_node"
         widgetProps={{
           style: styles,
-          checkable: true,
-          checkStrictly: false,
+          placeholder: '请选择节点',
+          onChange,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -104,5 +56,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

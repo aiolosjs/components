@@ -1,32 +1,41 @@
-import React from 'react';
-import useSWR from 'swr';
+import React, { useMemo } from 'react';
+import useSWR, { ConfigInterface } from 'swr';
 import { TreeNodeNormal } from 'antd/lib/tree/Tree';
 
 import { fetch } from '../../utils';
 import ATree, { ATreeProps } from '../atree';
 
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 export interface ADynamicTreeProps extends Omit<ATreeProps, 'treeData'> {
   action: string | null;
-  asyncFn?: (action: string) => Promise<TreeNodeNormal[]>;
+  asyncFn?: (action: string) => Promise<any[]>;
+  formatter?: (value: any) => TreeNodeNormal[];
+  swrOptions?: ConfigInterface;
 }
 
 const ADynamicTree: React.FC<ADynamicTreeProps> = ({
-  form,
   name,
+  label,
+  formItemProps,
   action,
   asyncFn,
-  widgetProps = {},
+  formatter,
+  swrOptions = {},
   ...rest
 }) => {
-  const { data = [] } = useSWR<TreeNodeNormal[]>(action, asyncFn || fetch);
+  const { data = [] } = useSWR<TreeNodeNormal[]>(action, asyncFn || fetch, swrOptions);
+
+  function formatWrapper(value: any): TreeNodeNormal[] {
+    if (formatter) {
+      return formatter(value);
+    }
+    return value;
+  }
+
+  const memoData = useMemo(() => formatWrapper(data), [data]);
 
   return (
-    <ATree form={form} name={name} treeData={data} widgetProps={{ ...widgetProps }} {...rest} />
+    <ATree label={label} name={name} treeData={memoData} formItemProps={formItemProps} {...rest} />
   );
 };
-
-ADynamicTree.defaultProps = {};
 
 export default ADynamicTree;

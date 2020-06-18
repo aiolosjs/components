@@ -1,55 +1,25 @@
 import React from 'react';
 import { Form, DatePicker } from 'antd';
-import { DatePickerProps } from 'antd/lib/date-picker/interface';
+import { DatePickerProps } from 'antd/lib/date-picker';
 import { IBaseWidgetProps } from '../types';
-import MonthPicker from './monthpicker';
-import RangePicker from './rangepicker';
-import WeekPicker from './weekpicker';
 
 export interface ADatePickerProps extends IBaseWidgetProps {
-  widgetProps?: DatePickerProps;
+  widgetProps?: Omit<DatePickerProps, 'picker'>;
+  picker?: 'date' | 'week' | 'month' | 'quarter' | 'year';
 }
 
-type staticComponent = {
-  MonthPicker?: typeof MonthPicker;
-  RangePicker?: typeof RangePicker;
-  WeekPicker?: typeof WeekPicker;
-};
-
-const ADatePicker: React.SFC<ADatePickerProps> & staticComponent = ({
+const ADatePicker: React.SFC<ADatePickerProps> = ({
   name,
   label,
-  form,
-  widgetProps,
-  formItemProps,
-  rules,
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<DatePicker {...widgetProps} />)}
-    </Form.Item>
-  );
-};
-
-ADatePicker.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
-
-ADatePicker.MonthPicker = MonthPicker;
-ADatePicker.RangePicker = RangePicker;
-ADatePicker.WeekPicker = WeekPicker;
+  picker = 'date',
+}) => (
+  <Form.Item name={name} label={label} initialValue={initialValue} rules={rules} {...formItemProps}>
+    <DatePicker picker={picker} {...widgetProps} />
+  </Form.Item>
+);
 
 export default ADatePicker;

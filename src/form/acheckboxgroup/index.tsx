@@ -11,37 +11,15 @@ export interface ACheckboxGroupProps extends IBaseWidgetProps {
 const ACheckboxGroup: React.FC<ACheckboxGroupProps> = ({
   name,
   label,
-  form,
-  checkboxOptions,
-  widgetProps,
-  formItemProps,
-  rules,
+  checkboxOptions = [],
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(
-        <Checkbox.Group options={checkboxOptions} {...widgetProps} />,
-      )}
-    </Form.Item>
-  );
-};
-
-ACheckboxGroup.defaultProps = {
-  initialValue: undefined,
-  checkboxOptions: [],
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+}) => (
+  <Form.Item name={name} label={label} rules={rules} initialValue={initialValue} {...formItemProps}>
+    <Checkbox.Group options={checkboxOptions} {...widgetProps} />
+  </Form.Item>
+);
 
 export default ACheckboxGroup;

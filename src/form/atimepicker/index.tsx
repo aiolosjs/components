@@ -10,33 +10,14 @@ export interface ATimePickerProps extends IBaseWidgetProps {
 const ATimePicker: React.SFC<ATimePickerProps> = ({
   name,
   label,
-  form,
-  widgetProps,
-  formItemProps,
-  rules,
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<TimePicker {...widgetProps} />)}
-    </Form.Item>
-  );
-};
-
-ATimePicker.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+}) => (
+  <Form.Item name={name} label={label} initialValue={initialValue} rules={rules} {...formItemProps}>
+    <TimePicker {...widgetProps} />
+  </Form.Item>
+);
 
 export default ATimePicker;

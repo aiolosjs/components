@@ -10,34 +10,21 @@ export interface ASwitchProps extends IBaseWidgetProps {
 const ASwitch: React.SFC<ASwitchProps> = ({
   name,
   label,
-  form,
-  widgetProps,
-  formItemProps,
-  rules,
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    valuePropName: 'checked',
-    ...fieldDecoratorOptions,
-  };
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<Switch {...widgetProps} />)}
-    </Form.Item>
-  );
-};
-
-ASwitch.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+}) => (
+  <Form.Item
+    name={name}
+    label={label}
+    rules={rules}
+    initialValue={initialValue}
+    valuePropName="checked"
+    {...formItemProps}
+  >
+    <Switch {...widgetProps} />
+  </Form.Item>
+);
 
 export default ASwitch;

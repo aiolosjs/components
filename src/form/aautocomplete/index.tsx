@@ -1,75 +1,51 @@
-import React, { useMemo } from 'react';
+/* eslint-disable no-nested-ternary */
+import React from 'react';
 import { Form, AutoComplete } from 'antd';
-import { AutoCompleteProps, DataSourceItemType } from 'antd/lib/auto-complete';
-import { OptionProps, OptGroupProps } from 'antd/lib/select';
+import { AutoCompleteProps } from 'antd/lib/auto-complete';
+import { LabeledValue } from 'antd/lib/select';
 import { IBaseWidgetProps } from '../types';
 
-const { Option, OptGroup } = AutoComplete;
-
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 export interface AAutoCompleteProps extends IBaseWidgetProps {
-  dataSource?: DataSourceItemType[];
-  formatter?: (value: any) => DataSourceItemType[];
-  widgetProps?: Omit<AutoCompleteProps, 'dataSource'>;
+  options?: LabeledValue[];
+  widgetProps?: Omit<AutoCompleteProps, 'options'>;
 }
 
 type staticComponent = {
-  Option?: React.ClassicComponentClass<OptionProps>;
-  OptGroup?: React.ClassicComponentClass<OptGroupProps>;
+  Option?: typeof AutoComplete.Option;
 };
 
 const AAutoComplete: React.FC<AAutoCompleteProps> & staticComponent = ({
   name,
   label,
-  form,
-  dataSource = [],
-  formatter,
+  options = [],
   children,
   widgetProps = {},
-  formItemProps,
-  rules,
-  initialValue = [],
-  fieldDecoratorOptions = {},
+  formItemProps = {},
+  rules = [],
+  initialValue,
 }) => {
-  const { getFieldDecorator } = form;
-  const options = {
+  Object.assign(formItemProps, {
     rules,
     initialValue,
-    ...fieldDecoratorOptions,
-  };
+  });
 
   const { ...rest } = widgetProps;
 
-  function formatWrapper(value: any): DataSourceItemType[] {
-    if (formatter) {
-      return formatter(value);
-    }
-    return value;
-  }
-
-  const dataSourceMemo = useMemo(() => formatWrapper(dataSource), [dataSource]);
-
   return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(
-        <AutoComplete dataSource={dataSourceMemo} {...rest}>
+    <Form.Item name={name} label={label} {...formItemProps}>
+      {React.isValidElement(children) ? (
+        <AutoComplete options={options} {...rest}>
           {children as React.ReactElement}
-        </AutoComplete>,
+        </AutoComplete>
+      ) : children ? (
+        <AutoComplete {...rest}>{children as React.ReactElement}</AutoComplete>
+      ) : (
+        <AutoComplete options={options} {...rest} />
       )}
     </Form.Item>
   );
 };
 
-AAutoComplete.defaultProps = {
-  initialValue: undefined,
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
-
-AAutoComplete.Option = Option;
-AAutoComplete.OptGroup = OptGroup;
+AAutoComplete.Option = AutoComplete.Option;
 
 export default AAutoComplete;

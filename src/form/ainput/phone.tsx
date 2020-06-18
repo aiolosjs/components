@@ -8,13 +8,12 @@ const rule = {
 
 class Phone extends React.PureComponent<AInputProps> {
   render() {
-    const { name, form, widgetProps = {}, rules = [], ...rest } = this.props;
+    const { name, widgetProps = {}, rules = [], ...rest } = this.props;
     const phoneRules = [rule, ...rules];
 
     return (
       <AInput
         name={name}
-        form={form}
         rules={phoneRules}
         widgetProps={{ maxLength: 11, ...widgetProps }}
         {...rest}

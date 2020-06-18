@@ -12,35 +12,15 @@ export interface ARadioGroupProps extends IBaseWidgetProps {
 const ARadioGroup: React.FC<ARadioGroupProps> = ({
   name,
   label,
-  form,
-  radioOptions,
-  widgetProps,
-  formItemProps,
-  rules,
+  radioOptions = [],
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<Radio.Group options={radioOptions} {...widgetProps} />)}
-    </Form.Item>
-  );
-};
-
-ARadioGroup.defaultProps = {
-  initialValue: undefined,
-  radioOptions: [],
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+}) => (
+  <Form.Item name={name} label={label} rules={rules} initialValue={initialValue} {...formItemProps}>
+    <Radio.Group options={radioOptions} {...widgetProps} />
+  </Form.Item>
+);
 
 export default ARadioGroup;

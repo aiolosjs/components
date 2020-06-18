@@ -1,62 +1,60 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { ConfigProvider, Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import zhCN from 'antd/es/locale/zh_CN';
-
-import './index.css';
-
-import AUpload from '..';
+import { Form, Button } from 'antd';
+import { AUpload } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  const [locale] = React.useState(zhCN);
+const styles: React.CSSProperties = {
+  width: 400,
+};
 
-  function onChange(value) {
-    // console.log(value);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onSelect(value: any) {
+    console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <ConfigProvider locale={locale}>
-      <Form {...layout} onSubmit={handleSubmit}>
-        <AUpload
-          name="demo2"
-          label="图片"
-          form={form}
-          rules={[
-            {
-              required: true,
-              message: ' 请选择图片',
-            },
-          ]}
-          widgetProps={{
-            listType: 'picture-card',
-            action: 'http://yapi.rebornauto.cn/mock/39/upload',
-            onChange,
-            multiple: true,
-          }}
-        />
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
+      <AUpload
+        name="demo1"
+        label="图片"
+        rules={[
+          {
+            required: true,
+            message: '请上传图片!',
+          },
+        ]}
+        widgetProps={{
+          style: styles,
+          placeholder: '请选择',
+          multiple: true,
+          action: 'http://yapi.suxf.cn/mock/84/upload',
+          listType: 'picture-card',
+        }}
+      />
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
-          <Button type="primary" htmlType="submit">
-            确定
-          </Button>
-        </Form.Item>
-      </Form>
-    </ConfigProvider>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+        <Button type="primary" htmlType="submit">
+          确定
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

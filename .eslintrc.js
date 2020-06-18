@@ -25,7 +25,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
     'consistent-return': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': ['error', { props: false }],
     'no-await-in-loop': 'off',
   },

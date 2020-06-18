@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import ASelect from '..';
+import { ASelect } from '@aiolosjs/components';
 
 const selectOptions = [
   {
@@ -22,35 +24,35 @@ const selectOptions = [
 ];
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: 120,
+  width: 300,
 };
 
-const WidgetWithForm = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ASelect
-        name="demo2"
-        label="ASelect"
-        form={form}
-        initialValue={3}
+        name="demo1"
+        label="姓名"
+        initialValue={1}
         rules={[
           {
             required: true,
@@ -66,7 +68,7 @@ const WidgetWithForm = ({ form }) => {
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -75,4 +77,4 @@ const WidgetWithForm = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

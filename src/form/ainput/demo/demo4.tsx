@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import AInput from '..';
+import { AInput } from '@aiolosjs/components';
 
 const layout = {
   labelCol: { span: 4 },
@@ -12,35 +13,36 @@ const styles: React.CSSProperties = {
   width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value: number | undefined) {
-    console.log(value);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AInput.Number
-        name="ainput.number"
-        label="AInput.number"
-        form={form}
+        name="demo4"
+        label="年龄"
         rules={[
           {
             required: true,
-            message: '请输入数字',
+            message: ' 请输入',
           },
         ]}
         widgetProps={{
           style: styles,
-          placeholder: '请输入数字',
+          placeholder: '请选择',
+          allowClear: true,
           onChange,
         }}
       />
@@ -54,4 +56,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

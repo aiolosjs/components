@@ -1,52 +1,54 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import ADynamicTreeSelect from '..';
+import { ADynamicTreeSelect } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
+export default () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicTreeSelect
-        name="name"
-        label="姓名"
-        form={form}
-        action="http://yapi.rebornauto.cn/mock/39/node"
+        name="demo1"
+        label="节点"
+        action="http://yapi.suxf.cn/mock/84/treeselect_node"
+        initialValue={102}
         rules={[
           {
             required: true,
-            message: ' 请选择!',
+            message: ' 请选择节点!',
           },
         ]}
         widgetProps={{
           style: styles,
-          placeholder: '请选择',
-          allowClear: true,
+          placeholder: '请选择节点',
           onChange,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -54,5 +56,3 @@ const WidgetWithForm = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

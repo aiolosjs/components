@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import AInput from '..';
+import { AInput } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
@@ -12,31 +13,30 @@ const styles: React.CSSProperties = {
   width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AInput.Password
-        name="ainput2"
-        label="AInput"
-        form={form}
-        initialValue={3}
+        name="demo2"
+        label="密码"
         rules={[
           {
             required: true,
-            message: ' AInput!',
+            message: ' 请输入',
           },
         ]}
         widgetProps={{
@@ -47,7 +47,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -56,4 +56,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;
