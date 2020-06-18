@@ -9,6 +9,6 @@ node_modules
 coverage
 .doc
 .DS_Store
-src/.umi
+.umi
 page
 lerna-debug.log
