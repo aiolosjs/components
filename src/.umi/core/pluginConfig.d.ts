@@ -23,7 +23,7 @@ export interface IConfigFromPlugins {
     [k: string]: any;
   }[];
   history?: {
-    type?: "browser" | "hash" | "memory";
+    type?: 'browser' | 'hash' | 'memory';
     options?: {};
   };
   polyfill?: {
@@ -31,14 +31,14 @@ export interface IConfigFromPlugins {
   };
   alias?: {};
   analyze?: {
-    analyzerMode?: "server" | "static" | "disabled";
+    analyzerMode?: 'server' | 'static' | 'disabled';
     analyzerHost?: string;
     analyzerPort?: any;
     openAnalyzer?: boolean;
     generateStatsFile?: boolean;
     statsFilename?: string;
-    logLevel?: "info" | "warn" | "error" | "silent";
-    defaultSizes?: "stat" | "parsed" | "gzip";
+    logLevel?: 'info' | 'warn' | 'error' | 'silent';
+    defaultSizes?: 'stat' | 'parsed' | 'gzip';
     [k: string]: any;
   };
   /**
@@ -59,10 +59,10 @@ export interface IConfigFromPlugins {
     importLoaders?: number;
     onlyLocals?: boolean;
     esModule?: boolean;
-    localsConvention?: "asIs" | "camelCase" | "camelCaseOnly" | "dashes" | "dashesOnly";
+    localsConvention?: 'asIs' | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly';
   };
   cssModulesTypescriptLoader?: {
-    mode?: "emit" | "verify";
+    mode?: 'emit' | 'verify';
   };
   cssnano?: {};
   copy?: string[];
@@ -136,13 +136,13 @@ export interface IConfigFromPlugins {
     basePath?: string;
     writeToFileEmit?: boolean;
   };
-  mountElementId?: "";
+  mountElementId?: '';
   mpa?: {};
   nodeModulesTransform?: {
-    type?: "all" | "none";
+    type?: 'all' | 'none';
     exclude?: string[];
   };
-  outputPath?: "";
+  outputPath?: '';
   plugins?: string[];
   postcssLoader?: {};
   presets?: string[];
@@ -158,7 +158,7 @@ export interface IConfigFromPlugins {
      * disable serve-side render in umi dev mode.
      */
     devServerRender?: boolean;
-    mode?: "stream" | "string";
+    mode?: 'stream' | 'string';
     /**
      * static markup in static site
      */
@@ -194,6 +194,7 @@ export interface IConfigFromPlugins {
   antd?: {
     dark?: boolean;
     compact?: boolean;
+    config?: {};
   };
   dva?: {
     immer?: boolean;
@@ -211,7 +212,7 @@ export interface IConfigFromPlugins {
   };
   layout?: {};
   request?: {
-    dataField?: "";
+    dataField?: '';
   };
   [k: string]: any;
 }
