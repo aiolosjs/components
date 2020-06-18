@@ -1,15 +1,10 @@
 import React from 'react';
-import { FormItemProps as AntdFormItemProps, ValidationRule } from 'antd/lib/form';
-import { GetFieldDecoratorOptions, WrappedFormUtils } from 'antd/lib/form/Form';
+import { FormItemProps as AntdFormItemProps, Rule } from 'antd/lib/form';
 
 export interface IBaseWidgetProps {
   name: string;
-  form: WrappedFormUtils;
   label?: React.ReactNode;
-  // placeholder?: string;
-  // required?: boolean;
   formItemProps?: AntdFormItemProps;
   initialValue?: any;
-  rules?: ValidationRule[];
-  fieldDecoratorOptions?: GetFieldDecoratorOptions;
+  rules?: Rule[];
 }

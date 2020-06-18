@@ -1,9 +1,10 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import ACheckboxGroup from '..';
+/* eslint-disable no-console */
 
-const radioOptions = [
+import React from 'react';
+import { Form, Button } from 'antd';
+import { ACheckboxGroup } from '@aiolosjs/components';
+
+const checkboxOptions = [
   {
     value: 1,
     label: '黑龙江省',
@@ -23,66 +24,50 @@ const radioOptions = [
 ];
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  const { getFieldDecorator } = form;
+const styles: React.CSSProperties = {
+  width: 400,
+};
 
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any) {
+    console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
-      <Form.Item label="E-mail">
-        {getFieldDecorator('email', {
-          rules: [
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
-              required: true,
-              message: 'Please input your E-mail!',
-            },
-          ],
-        })(<Input />)}
-      </Form.Item>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ACheckboxGroup
         name="demo2"
         label="省份"
-        form={form}
-        initialValue={3}
+        initialValue={[2, 4]}
         rules={[
           {
             required: true,
-            message: '请选择省份',
+            message: ' ASelect!',
           },
         ]}
-        radioOptions={radioOptions}
+        checkboxOptions={checkboxOptions}
+        widgetProps={{
+          style: styles,
+          placeholder: '请选择',
+          onChange,
+        }}
       />
-      <Form.Item label="姓名">
-        {getFieldDecorator('name', {
-          rules: [
-            {
-              required: true,
-              message: '请输入姓名',
-            },
-          ],
-        })(<Input />)}
-      </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -91,4 +76,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

@@ -1,49 +1,56 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import './index.css';
-import AUpload from '..';
+import { AUpload } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value) {
-    // console.log(value);
+const styles: React.CSSProperties = {
+  width: 400,
+};
+
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onSelect(value: any) {
+    console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AUpload
-        name="demo2"
+        name="demo3"
         label="图片"
-        form={form}
         rules={[
           {
             required: true,
-            message: ' 请选择图片',
+            message: '请上传图片!',
           },
         ]}
+        maxFileSize={1}
+        maxFileCount={400}
         widgetProps={{
-          listType: 'text',
-          action: 'http://yapi.rebornauto.cn/mock/39/upload',
-          onChange,
+          style: styles,
+          placeholder: '请选择',
           multiple: true,
+          action: 'http://yapi.suxf.cn/mock/84/upload',
+          listType: 'picture-card',
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -52,4 +59,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

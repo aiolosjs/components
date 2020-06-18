@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useThrottleFn } from '@umijs/hooks';
+import { LabeledValue } from 'antd/lib/select';
 
 import { fetch } from '../../utils';
 import AAutoComplete, { AAutoCompleteProps } from '../aautocomplete';
-
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export interface LoadDataOption {
   action: string;
@@ -16,16 +15,17 @@ export interface ADynamicAutoCompleteProps extends Omit<AAutoCompleteProps, 'dat
   loadDataOption: LoadDataOption;
   customLoadDataParams?: (searchValue: string) => string;
   asyncFn?: (action: string) => Promise<any>;
+  formatter?: (value: any) => LabeledValue[];
   throttleWait?: number;
 }
 
 const ADynamicAutoComplete: React.FC<ADynamicAutoCompleteProps> = ({
-  form,
   name,
   customLoadDataParams,
   loadDataOption,
   asyncFn,
-  throttleWait = 300,
+  formatter,
+  throttleWait = 0,
   initialValue,
   widgetProps = {},
   ...rest
@@ -75,11 +75,19 @@ const ADynamicAutoComplete: React.FC<ADynamicAutoCompleteProps> = ({
     setInputValue(value);
   }
 
+  function formatWrapper(value: any): LabeledValue[] {
+    if (formatter) {
+      return formatter(value);
+    }
+    return value;
+  }
+
+  const dataSourceMemo = useMemo(() => formatWrapper(dataSource), [dataSource]);
+
   return (
     <AAutoComplete
-      form={form}
       name={name}
-      dataSource={dataSource}
+      options={dataSourceMemo}
       initialValue={initialValue}
       widgetProps={{ onSearch: onSearchHandle, ...restWidgeProps }}
       {...rest}

@@ -1,44 +1,45 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import ADynamicCascader from '..';
+import { Form, Button, Input } from 'antd';
+import { ADynamicCascader } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: 260,
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicCascader
         name="demo2"
         label="地址"
-        form={form}
+        initialValue={[10004, 20004, 30002]}
         rules={[
           {
             required: true,
-            message: ' ADynamicCascader!',
+            message: ' 请选择!',
           },
         ]}
-        initialValue={[10004, 20004, 30002]}
         loadDataOptions={[
           { action: 'http://yapi.rebornauto.cn/mock/39/province_1' },
           { action: 'http://yapi.rebornauto.cn/mock/39/city_1', queryKey: 'id' },
@@ -52,7 +53,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -61,4 +62,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

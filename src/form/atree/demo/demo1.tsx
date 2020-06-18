@@ -1,107 +1,80 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { Form, Tag, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import ATree from '..';
+import { Form, Button } from 'antd';
+import { ATree } from '@aiolosjs/components';
 
 const treeData = [
   {
-    title: 'Node1',
-    key: '0-0',
+    key: '1',
+    title: '班级-1',
     children: [
       {
-        title: 'Child Node1',
-        key: '0-0-0',
+        title: '熊超',
+        key: '100',
       },
       {
-        title: 'Child Node2',
-        key: '0-0-1',
-        disabled: true,
+        title: '余洋',
+        key: '101',
       },
       {
-        title: 'Child Node2',
-        key: '0-0-2',
-        children: [
-          {
-            title: 'Child Node2-1',
-            key: '0-0-2-1',
-          },
-          {
-            title: 'Child Node2-2',
-            key: '0-0-2-2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Node2',
-    key: '0-1',
-    children: [
-      {
-        title: 'Child Node3',
-        key: '0-1-0',
+        title: '顾娟',
+        key: '102',
       },
       {
-        title: 'Child Node4',
-        key: '0-1-1',
-      },
-      {
-        title: 'Child Node5',
-        key: '0-1-2',
+        title: '刘秀英',
+        key: '103',
       },
     ],
   },
 ];
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 400,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    // console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onSelect(value: any) {
+    console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ATree
-        name="demo2"
+        name="demo1"
         label="节点"
-        form={form}
+        treeData={treeData}
+        initialValue={['102']}
         rules={[
           {
             required: true,
-            message: ' ATree!',
+            message: ' ASelect!',
           },
         ]}
-        treeData={treeData}
-        initialValue={['0-0-0']}
         widgetProps={{
           style: styles,
-          checkable: true,
-          // autoExpandParent:true,
-          // checkStrictly:true
-          // checkStrictly:true,
-          // showCheckedStrategy: TreeSelect.SHOW_ALL,
-          // onChange,
+          placeholder: '请选择',
+          // checkable: true,
+          onSelect,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -110,4 +83,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

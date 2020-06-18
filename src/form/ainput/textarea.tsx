@@ -7,7 +7,7 @@ export interface AInputTextAreaProps extends IBaseWidgetProps {
   widgetProps?: TextAreaProps;
 }
 
-class Password extends React.PureComponent<AInputTextAreaProps> {
+class TextArea extends React.PureComponent<AInputTextAreaProps> {
   static defaultProps = {
     initialValue: undefined,
     widgetProps: {},
@@ -20,27 +20,24 @@ class Password extends React.PureComponent<AInputTextAreaProps> {
     const {
       name,
       label,
-      form,
-      widgetProps,
-      formItemProps,
-      rules,
+      rules = [],
       initialValue,
-      fieldDecoratorOptions = {},
+      formItemProps = {},
+      widgetProps = {},
     } = this.props;
 
-    const { getFieldDecorator } = form;
-    const options = {
-      rules,
-      initialValue,
-      ...fieldDecoratorOptions,
-    };
-
     return (
-      <Form.Item label={label} {...formItemProps}>
-        {getFieldDecorator(name, options)(<Input.TextArea {...widgetProps} />)}
+      <Form.Item
+        name={name}
+        label={label}
+        rules={rules}
+        initialValue={initialValue}
+        {...formItemProps}
+      >
+        <Input.TextArea {...widgetProps} />
       </Form.Item>
     );
   }
 }
 
-export default Password;
+export default TextArea;

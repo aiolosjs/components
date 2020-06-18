@@ -1,51 +1,48 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-
-import ASwitch from '..';
+import { ASwitch } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-// const styles: React.CSSProperties = {
-//   width: 260,
-// };
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value) {
+  function onChange(value: any) {
     console.log(value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ASwitch
-        name="switch"
-        label="Switch"
-        form={form}
-        initialValue={!!1}
+        name="demo1"
+        label="是否正确"
+        // initialValue={!!1}
         rules={[
           {
             required: true,
-            message: '请选择',
+            message: ' 请选择!',
           },
         ]}
         widgetProps={{
+          placeholder: '请选择',
           onChange,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -54,4 +51,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

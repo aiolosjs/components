@@ -20,24 +20,21 @@ class Number extends React.PureComponent<AInputNumberProps> {
     const {
       name,
       label,
-      form,
-      widgetProps,
-      formItemProps,
-      rules,
+      rules = [],
       initialValue,
-      fieldDecoratorOptions = {},
+      formItemProps = {},
+      widgetProps = {},
     } = this.props;
 
-    const { getFieldDecorator } = form;
-    const options = {
-      rules,
-      initialValue,
-      ...fieldDecoratorOptions,
-    };
-
     return (
-      <Form.Item label={label} {...formItemProps}>
-        {getFieldDecorator(name, options)(<InputNumber {...widgetProps} />)}
+      <Form.Item
+        name={name}
+        label={label}
+        rules={rules}
+        initialValue={initialValue}
+        {...formItemProps}
+      >
+        <InputNumber {...widgetProps} />
       </Form.Item>
     );
   }

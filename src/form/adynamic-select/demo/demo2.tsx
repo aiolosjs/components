@@ -1,53 +1,58 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import { Form, Button, Input } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
+import { ADynamicSelect } from '@aiolosjs/components';
 
-import { ADynamicSelect, AInput } from '../../../index';
+const selectOptions = [
+  {
+    key: 1,
+    value: '邓艳',
+    age: 25,
+  },
+  {
+    key: 2,
+    value: '龙芳',
+    disabled: true,
+    age: 24,
+  },
+  {
+    key: 3,
+    value: '乔明',
+    age: 25,
+  },
+];
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: 260,
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
-    if (node) {
-      const {
-        props: { age, address },
-      } = node;
-      form.setFieldsValue({
-        age,
-        address,
-      });
-    } else {
-      form.setFieldsValue({
-        age: undefined,
-        address: undefined,
-      });
-    }
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicSelect
-        name="name"
+        name="name2"
         label="姓名"
-        form={form}
-        action="http://yapi.rebornauto.cn/mock/39/dic"
+        action="http://yapi.suxf.cn/mock/84/dic"
         rules={[
           {
             required: true,
@@ -56,39 +61,29 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         ]}
         widgetProps={{
           style: styles,
-          placeholder: '请选择',
+          placeholder: '请选择姓名',
           allowClear: true,
           onChange,
         }}
       />
-      <AInput
-        name="age"
-        label="年龄"
-        form={form}
+      <Form.Item
+        name="email"
+        label="E-mail"
         rules={[
           {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
             required: true,
-            message: ' 请输入年龄!',
+            message: 'Please input your E-mail!',
           },
         ]}
-        widgetProps={{
-          style: styles,
-          placeholder: '请输入年龄',
-        }}
-      />
-
-      <Form.Item label="地址">
-        {form.getFieldDecorator('address', {
-          rules: [
-            {
-              required: true,
-              message: ' 请输入地址',
-            },
-          ],
-        })(<Input style={styles} placeholder="请输入地址" />)}
+      >
+        <Input />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -97,4 +92,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

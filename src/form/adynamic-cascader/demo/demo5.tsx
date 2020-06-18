@@ -1,50 +1,60 @@
 import React from 'react';
 import { Form, Button } from 'antd';
 import request from 'umi-request';
-import { FormComponentProps } from 'antd/es/form';
 import { CascaderOptionType } from 'antd/lib/cascader';
-import ADynamicCascader from '..';
+import { ADynamicCascader } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
   width: 260,
 };
 
-const fetch: <T>(url: string) => Promise<T> = url => request.get(url).then(res => res);
+const fetch: <T>(url: string) => Promise<T> = (url) => request.get(url).then((res) => res);
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm: React.FC = () => {
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   function formatter(data: any): CascaderOptionType[] {
-    return data.districts[0].districts.map(({ name, adcode, level }) => {
-      if (level === 'district') {
-        return { label: name, value: adcode };
-      }
-      return { label: name, value: adcode, isLeaf: false };
-    });
+    return data.districts[0].districts.map(
+      ({ name, adcode, level }: { name: string; adcode: string; level: string }) => {
+        if (level === 'district') {
+          return { label: name, value: adcode };
+        }
+        return { label: name, value: adcode, isLeaf: false };
+      },
+    );
+  }
+
+  function customLoadDataParams(
+    selectedOptions: CascaderOptionType[],
+    position: number,
+  ): string | undefined {
+    console.log('selectedOptions', selectedOptions);
+    if (position !== 1 && selectedOptions.length > 0) {
+      const { value } = selectedOptions[position - 2];
+      return `https://restapi.amap.com/v3/config/district?subdistrict=1&key=ad951c7566a551545e691d472be31429&keywords=${value}`;
+    }
   }
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicCascader
         name="demo5"
         label="地址"
-        form={form}
         rules={[
           {
             required: true,
@@ -69,13 +79,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         ]}
         asyncFn={fetch}
         formatter={formatter}
-        customLoadDataParams={(selectedOptions, position) => {
-          // console.log(selectedOptions,position)
-          if (position !== 1 && selectedOptions.length > 0) {
-            const { value } = selectedOptions[position - 2];
-            return `https://restapi.amap.com/v3/config/district?subdistrict=1&key=ad951c7566a551545e691d472be31429&keywords=${value}`;
-          }
-        }}
+        customLoadDataParams={customLoadDataParams}
         widgetProps={{
           style: styles,
           placeholder: '请选择省市区',
@@ -84,7 +88,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -93,4 +97,4 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

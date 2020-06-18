@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { Form, Input, Button } from 'antd';
-import ASelect from '..';
+import { Form, Button, Input } from 'antd';
+import { ASelect } from '@aiolosjs/components';
 
 const selectOptions = [
   {
@@ -22,47 +24,35 @@ const selectOptions = [
 ];
 
 const layout = {
-  labelCol: { span: 2 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-const WidgetWithForm = ({ form }) => {
-  const { getFieldDecorator } = form;
+const styles: React.CSSProperties = {
+  width: 300,
+};
 
-  function onChange(value, node) {
-    console.log(value, node);
+const WidgetWithForm = () => {
+  const [form] = Form.useForm();
+
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
-      <Form.Item label="E-mail">
-        {getFieldDecorator('email', {
-          rules: [
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
-              required: true,
-              message: 'Please input your E-mail!',
-            },
-          ],
-        })(<Input />)}
-      </Form.Item>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ASelect
         name="demo2"
         label="ASelect"
-        form={form}
-        initialValue={3}
+        initialValue={1}
         rules={[
           {
             required: true,
@@ -71,22 +61,30 @@ const WidgetWithForm = ({ form }) => {
         ]}
         selectOptions={selectOptions}
         widgetProps={{
+          style: styles,
           placeholder: '请选择',
           allowClear: true,
           onChange,
         }}
       />
-      <Form.Item label="name">
-        {getFieldDecorator('name', {
-          rules: [
-            {
-              required: true,
-              message: 'Please input name!',
-            },
-          ],
-        })(<Input />)}
+      <Form.Item
+        name="email"
+        label="E-mail"
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -95,4 +93,4 @@ const WidgetWithForm = ({ form }) => {
   );
 };
 
-export default Form.create()(WidgetWithForm);
+export default WidgetWithForm;

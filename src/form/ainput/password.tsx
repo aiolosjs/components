@@ -20,24 +20,20 @@ class Password extends React.PureComponent<AInputPasswordProps> {
     const {
       name,
       label,
-      form,
-      widgetProps,
-      formItemProps,
-      rules,
+      rules = [],
       initialValue,
-      fieldDecoratorOptions = {},
+      formItemProps = {},
+      widgetProps = {},
     } = this.props;
-
-    const { getFieldDecorator } = form;
-    const options = {
-      rules,
-      initialValue,
-      ...fieldDecoratorOptions,
-    };
-
     return (
-      <Form.Item label={label} {...formItemProps}>
-        {getFieldDecorator(name, options)(<Input.Password {...widgetProps} />)}
+      <Form.Item
+        name={name}
+        label={label}
+        rules={rules}
+        initialValue={initialValue}
+        {...formItemProps}
+      >
+        <Input.Password {...widgetProps} />
       </Form.Item>
     );
   }

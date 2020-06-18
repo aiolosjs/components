@@ -1,59 +1,73 @@
-import React from 'react';
+/* eslint-disable no-console */
+
+import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import AAutoComplete from '..';
+import { AAutoComplete } from '@aiolosjs/components';
+
+const { TextArea } = Input;
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  const [dataSource, setDataSource] = React.useState<string[]>([]);
+export default () => {
+  const [form] = Form.useForm();
 
-  function onSearch(searchText: any) {
-    setDataSource(!searchText ? [] : [searchText, searchText.repeat(2), searchText.repeat(3)]);
-  }
+  const [options, setOptions] = useState<{ value: string }[]>([]);
 
-  function onChange(value, node) {
-    // console.log(value, node);
-  }
+  const onSearch = (value: string) => {
+    setOptions(
+      !value ? [] : [{ value }, { value: value + value }, { value: value + value + value }],
+    );
+  };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const handleKeyPress = (ev: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // console.log('handleKeyPress', ev);
+  };
+
+  const onSelect = (value: string) => {
+    console.log('onSelect', value);
+  };
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AAutoComplete
         name="demo3"
         label="选择"
-        form={form}
         rules={[
           {
             required: true,
             message: ' AAutoComplete!',
           },
         ]}
-        dataSource={dataSource}
+        options={options}
         widgetProps={{
           style: styles,
           onSearch,
         }}
       >
-        <Input.TextArea placeholder="input here" style={{ height: 50 }} />
+        <TextArea
+          placeholder="input here"
+          className="custom"
+          style={{ height: 50 }}
+          onKeyPress={handleKeyPress}
+        />
       </AAutoComplete>
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -61,5 +75,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

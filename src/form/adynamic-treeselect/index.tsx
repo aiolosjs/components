@@ -1,38 +1,54 @@
-import React from 'react';
-import useSWR from 'swr';
-import { TreeNode } from 'antd/lib/tree-select/interface';
+import React, { useMemo } from 'react';
+import useSWR, { ConfigInterface } from 'swr';
+import { TreeNodeNormal } from 'antd/lib/tree/Tree';
+import { DataNode } from 'rc-tree-select/lib/interface';
 
 import { fetch } from '../../utils';
 import ATreeSelect, { ATreeSelectProps } from '../atreeselect';
 
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 export interface ADynamicTreeSelectProps extends Omit<ATreeSelectProps, 'treeData'> {
   action: string | null;
-  asyncFn?: (action: string) => Promise<TreeNode[]>;
+  asyncFn?: (action: string) => Promise<any[]>;
+  formatter?: (value: any) => DataNode[];
+  swrOptions?: ConfigInterface;
 }
 
 const ADynamicTreeSelect: React.FC<ADynamicTreeSelectProps> = ({
-  form,
   name,
+  label,
+  formItemProps,
   action,
   asyncFn,
+  formatter,
   widgetProps = {},
+  swrOptions = {},
   ...rest
 }) => {
-  const { data = [], isValidating } = useSWR<TreeNode[]>(action, asyncFn || fetch);
+  const { data = [], isValidating } = useSWR<TreeNodeNormal[]>(
+    action,
+    asyncFn || fetch,
+    swrOptions,
+  );
+
+  function formatWrapper(value: any): DataNode[] {
+    if (formatter) {
+      return formatter(value);
+    }
+    return value;
+  }
+
+  const memoData = useMemo(() => formatWrapper(data), [data]);
 
   return (
     <ATreeSelect
-      form={form}
+      label={label}
       name={name}
-      treeData={data}
+      treeData={memoData}
+      formItemProps={formItemProps}
       widgetProps={{ loading: isValidating, ...widgetProps }}
       {...rest}
     />
   );
 };
-
-ADynamicTreeSelect.defaultProps = {};
 
 export default ADynamicTreeSelect;

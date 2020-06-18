@@ -1,54 +1,53 @@
-import React from 'react';
-import { Form, Tag, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import AAutoComplete from '..';
+/* eslint-disable no-console */
+
+import React, { useState } from 'react';
+import { Form, Button } from 'antd';
+import { AAutoComplete } from '@aiolosjs/components';
+
+const { Option } = AAutoComplete;
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  const [dataSource, setDataSource] = React.useState<string[]>([]);
+const mockVal = (str: string, repeat: number = 1) => {
+  return {
+    value: str.repeat(repeat),
+  };
+};
 
-  function onSearch(value: any) {
-    let result: string[];
+export default () => {
+  const [form] = Form.useForm();
+
+  const [result, setResult] = useState<string[]>([]);
+  const onSearch = (value: string) => {
+    let res: string[] = [];
     if (!value || value.indexOf('@') >= 0) {
-      result = [];
+      res = [];
     } else {
-      result = ['gmail.com', '163.com', 'qq.com'].map(domain => `${value}@${domain}`);
+      res = ['gmail.com', '163.com', 'qq.com'].map((domain) => `${value}@${domain}`);
     }
+    setResult(res);
+  };
 
-    setDataSource(result);
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
 
-  function onChange(value, node) {
-    // console.log(value, node);
-  }
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
-
-  const children = dataSource.map(email => (
-    <AAutoComplete.Option key={email}>{email}</AAutoComplete.Option>
-  ));
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AAutoComplete
         name="demo2"
         label="选择"
-        form={form}
         rules={[
           {
             required: true,
@@ -61,10 +60,14 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
           onSearch,
         }}
       >
-        {children}
+        {result.map((email: string) => (
+          <Option key={email} value={email}>
+            {email}
+          </Option>
+        ))}
       </AAutoComplete>
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -72,5 +75,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

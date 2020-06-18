@@ -1,47 +1,55 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { Form, Tag, Button } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
-import AAutoComplete from '..';
+import { Form, Button } from 'antd';
+import { AAutoComplete } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  const [dataSource, setDataSource] = React.useState<string[]>([]);
+const mockVal = (str: string, repeat: number = 1) => {
+  return {
+    value: str.repeat(repeat),
+  };
+};
+
+export default () => {
+  const [form] = Form.useForm();
+
+  const [options, setOptions] = React.useState<{ value: string }[]>([]);
 
   function onSearch(searchText: any) {
-    setDataSource(!searchText ? [] : [searchText, searchText.repeat(2), searchText.repeat(3)]);
+    setOptions(
+      !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)],
+    );
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <AAutoComplete
         name="demo1"
         label="选择"
-        form={form}
         rules={[
           {
             required: true,
             message: ' AAutoComplete!',
           },
         ]}
-        dataSource={dataSource}
-        // initialValue={['0-0-0']}
+        options={options}
         widgetProps={{
           style: styles,
           placeholder: '请输入',
@@ -49,7 +57,7 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -57,5 +65,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);

@@ -1,58 +1,25 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Form, Cascader } from 'antd';
 import { CascaderProps, CascaderOptionType } from 'antd/lib/cascader';
 import { IBaseWidgetProps } from '../types';
 
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
 export interface ACascaderProps extends IBaseWidgetProps {
   selectOptions: CascaderOptionType[];
-  formatter?: (value: Array<CascaderOptionType>) => Array<CascaderOptionType>;
   widgetProps?: Omit<CascaderProps, 'options'>;
 }
 
 const ACascader: React.FC<ACascaderProps> = ({
   name,
   label,
-  form,
-  selectOptions,
-  widgetProps,
-  formatter,
-  formItemProps,
-  rules,
+  selectOptions = [],
+  widgetProps = {},
+  formItemProps = {},
+  rules = [],
   initialValue,
-  fieldDecoratorOptions = {},
-}) => {
-  const { getFieldDecorator } = form;
-  const options = {
-    rules,
-    initialValue,
-    ...fieldDecoratorOptions,
-  };
-
-  function formatWrapper(value: Array<CascaderOptionType>) {
-    if (formatter) {
-      return formatter(value);
-    }
-    return value;
-  }
-
-  const selectOptionsMemo = useMemo(() => formatWrapper(selectOptions), [selectOptions]);
-
-  return (
-    <Form.Item label={label} {...formItemProps}>
-      {getFieldDecorator(name, options)(<Cascader options={selectOptionsMemo} {...widgetProps} />)}
-    </Form.Item>
-  );
-};
-
-ACascader.defaultProps = {
-  initialValue: undefined,
-  selectOptions: [],
-  widgetProps: {},
-  formItemProps: {},
-  rules: [],
-  fieldDecoratorOptions: {},
-};
+}) => (
+  <Form.Item name={name} rules={rules} label={label} initialValue={initialValue} {...formItemProps}>
+    <Cascader options={selectOptions} {...widgetProps} />
+  </Form.Item>
+);
 
 export default ACascader;

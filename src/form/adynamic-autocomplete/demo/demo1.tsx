@@ -1,38 +1,45 @@
+/* eslint-disable no-console */
+
 import React from 'react';
-import { Form, AutoComplete, Button } from 'antd';
-import jsonp from 'jsonp';
-import { FormComponentProps } from 'antd/es/form';
-import ADynamicAutoComplete from '..';
+import { Form, Button } from 'antd';
+import { ADynamicAutoComplete } from '@aiolosjs/components';
 
 const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
 };
 
 const styles: React.CSSProperties = {
-  width: '100%',
+  width: 300,
 };
 
-const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
-  function onSearch(value: any) {
-    console.log(value);
-  }
+const mockVal = (str: string, repeat: number = 1) => {
+  return {
+    value: str.repeat(repeat),
+  };
+};
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
+export default () => {
+  const [form] = Form.useForm();
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const formatter = (data: [] = []) => {
+    return data.map((v) => ({ value: v }));
+  };
 
   return (
-    <Form {...layout} onSubmit={handleSubmit}>
+    <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
       <ADynamicAutoComplete
         name="demo1"
         label="节点"
-        form={form}
+        formatter={formatter}
         rules={[
           {
             required: true,
@@ -45,11 +52,10 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
         }}
         widgetProps={{
           style: styles,
-          onSearch,
         }}
       />
 
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
         <Button type="primary" htmlType="submit">
           确定
         </Button>
@@ -57,5 +63,3 @@ const WidgetWithForm: React.FC<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export default Form.create()(WidgetWithForm);
