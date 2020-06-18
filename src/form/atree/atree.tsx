@@ -99,7 +99,7 @@ const ATree: React.FC<TreeNormalProps> = ({
     let checkStrictlyCheckedKeys = checkedNode;
     if (treeCheckParentStrictly && checkStrictly && !Array.isArray(checkedNode)) {
       const { node, checked } = info;
-      const childCheckeds = getNodekeys(node.children ?? ([] as Array<any>));
+      const childCheckeds = getNodekeys(node.children ? node.children : ([] as Array<any>));
       if (checked) {
         checkStrictlyCheckedKeys = removeDuplicates([...checkedNode.checked, ...childCheckeds]);
       } else {
