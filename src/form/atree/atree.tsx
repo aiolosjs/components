@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Tree, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { TreeProps, TreeNodeNormal } from 'antd/lib/tree/Tree';
-import { EventDataNode } from 'rc-tree/lib/interface';
+import { EventDataNode } from 'antd/lib/tree';
 import omit from 'omit.js';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 20 }} spin />;

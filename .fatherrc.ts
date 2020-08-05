@@ -13,7 +13,7 @@ const options = {
       {
         libraryName: 'antd',
         libraryDirectory: 'es',
-        style: true,
+        style: 'css',
       },
     ],
   ],

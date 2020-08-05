@@ -1,6 +1,6 @@
 {
   "name": "@aiolosjs/components",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "antd form library",
   "keywords": [
     "antd form",
@@ -16,6 +16,7 @@
   ],
   "main": "./lib/index.js",
   "module": "./es/index.js",
+  "types": "./lib/index.d.ts",
   "authors": {
     "name": "dafeng",
     "email": "xiangfeng_su@126.com"
@@ -24,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/aiolosjs/components.git"
   },
-  "homepage": "https://github.com/aiolosjs/components.git",
+  "homepage": "http://aiolosjs.rebornauto.cn",
   "directories": {
     "lib": "lib"
   },
@@ -32,7 +33,7 @@
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
-    "build": "father-build",
+    "build": "father-build && gulp",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "lint": "eslint --fix \"src/**/*.{ts,tsx}\"",
@@ -41,8 +42,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@umijs/hooks": "^1.9.2",
-    "antd": "^4.2.5",
-    "lightbox-component2": "^1.1.1",
+    "antd": "^4.5.2",
+    "lightbox-component2": "^1.2.0",
     "omit.js": "^1.0.2",
     "react": "^16.12.0",
     "swr": "^0.2.2",
@@ -53,8 +54,10 @@
     "@umijs/test": "^3.0.5",
     "babel-plugin-import": "^1.13.0",
     "dumi": "^1.0.31",
-    "father": "^2.29.3",
-    "father-build": "^1.18.0",
+    "father": "^2.29.6",
+    "father-build": "^1.18.2",
+    "gulp": "4",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "jsonp": "^0.2.1",
     "lint-staged": "^10.0.7",
     "moment": "^2.26.0",

@@ -20,7 +20,6 @@ const ATreeSelect: React.FC<TreeSelectNormalProps> = ({
   treeData,
   widgetProps = {},
 }) => {
-  // const {treeCheckStrictly,...rest} = widgetProps;
   // @ts-ignore
   const treeSelectRestProps = omit(widgetProps, ['onChange', 'value']);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<Key[]>([]);
