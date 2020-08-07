@@ -5,7 +5,7 @@ export default defineConfig({
   mode: 'site',
   navs: [
     null,
-    { title: 'v1.x', path: 'http://v1.aiolosjs.rebornauto.cn' },
+    { title: 'v1.x', path: 'http://v1.aiolosjs.suxf.cn' },
     { title: 'GitHub', path: 'https://github.com/aiolosjs/components.git' },
   ],
   antd: {

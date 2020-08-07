@@ -14,3 +14,4 @@ coverage
 .umi-production
 page
 lerna-debug.log
+dist.tar.gz
