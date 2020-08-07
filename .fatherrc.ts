@@ -4,7 +4,7 @@ const options = {
   cjs: 'babel',
   disableTypeCheck: true,
   preCommit: {
-    eslint: true,
+    eslint: false,
     prettier: true,
   },
   extraBabelPlugins: [
