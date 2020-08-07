@@ -13,7 +13,7 @@ const styles: React.CSSProperties = {
   width: 260,
 };
 
-const fetch: <T>(url: string) => Promise<T> = (url) => request.get(url).then((res) => res);
+const fetch: <T>(url: string) => Promise<T> = url => request.get(url).then(res => res);
 
 const WidgetWithForm: React.FC = () => {
   function onChange(value: any, option: any) {

@@ -5,7 +5,7 @@ import { fetch } from '../../utils';
 import ASelect, { ASelectProps, SelectOptionsProps } from '../aselect';
 
 export interface ADynamicSelectProps extends Omit<ASelectProps, 'selectOptions'> {
-  action: string | null;
+  action: string | null | (() => string);
   formatter?: (value: any) => SelectOptionsProps[];
   asyncFn?: (action: string) => Promise<SelectOptionsProps[]>;
   swrOptions?: ConfigInterface;
@@ -18,6 +18,8 @@ const ADynamicSelect: React.FC<ADynamicSelectProps> = ({
   asyncFn,
   swrOptions = {},
   widgetProps = {},
+  formItemProps = {},
+  initialValue,
   ...rest
 }) => {
   const { data = [], isValidating } = useSWR<SelectOptionsProps[]>(
@@ -25,6 +27,10 @@ const ADynamicSelect: React.FC<ADynamicSelectProps> = ({
     asyncFn || fetch,
     swrOptions,
   );
+
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   function formatWrapper(value: any): SelectOptionsProps[] {
     if (formatter) {
@@ -39,6 +45,7 @@ const ADynamicSelect: React.FC<ADynamicSelectProps> = ({
     <ASelect
       name={name}
       selectOptions={memoData}
+      formItemProps={formItemProps}
       widgetProps={{ loading: isValidating, ...widgetProps }}
       {...rest}
     />

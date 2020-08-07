@@ -14,8 +14,6 @@ const styles: React.CSSProperties = {
 };
 
 export default () => {
-  const [form] = Form.useForm();
-
   function onChange(value: any, option: any) {
     console.log(value, option);
   }
@@ -56,3 +54,4 @@ export default () => {
     </Form>
   );
 };
+//

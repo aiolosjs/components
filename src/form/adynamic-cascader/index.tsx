@@ -34,17 +34,21 @@ const setChildValue = (
 
 const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
   name,
-
-  initialValue,
   widgetProps,
   loadDataOptions = [],
   formatter,
   asyncFn,
   customLoadDataParams,
+  initialValue,
+  formItemProps = {},
   selectOptions: initSelectOptions = [],
   ...rest
 }) => {
   const [selectOptions, setSelectOptions] = useState<CascaderOptionType[]>(initSelectOptions);
+
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   async function fetchData(params: string) {
     return asyncFn ? asyncFn(params) : fetch<CascaderOptionType[]>(params);
@@ -142,7 +146,7 @@ const ADynamicCascader: React.FC<ADynamicCascaderProps> = ({
     <ACascader
       name={name}
       selectOptions={selectOptions}
-      initialValue={initialValue}
+      formItemProps={formItemProps}
       widgetProps={{ loadData, ...widgetProps }}
       {...rest}
     />

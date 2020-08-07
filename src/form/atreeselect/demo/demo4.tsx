@@ -1,50 +1,45 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { Form, Button } from 'antd';
-import { ATree } from '@aiolosjs/components';
+import { Form, Button, TreeSelect } from 'antd';
+import { ATreeSelect } from '@aiolosjs/components';
 
 const treeData = [
   {
-    title: '0-0',
-    key: '0-0',
+    value: '1',
+    title: '班级-1',
     children: [
       {
-        title: '0-0-0',
-        key: '0-0-0',
-        children: [
-          { title: '0-0-0-0', key: '0-0-0-0' },
-          { title: '0-0-0-1', key: '0-0-0-1' },
-          { title: '0-0-0-2', key: '0-0-0-2', disabled: true },
-        ],
+        title: '熊超',
+        value: '100',
       },
       {
-        title: '0-0-1',
-        key: '0-0-1',
-        children: [
-          { title: '0-0-1-0', key: '0-0-1-0' },
-          { title: '0-0-1-1', key: '0-0-1-1' },
-          { title: '0-0-1-2', key: '0-0-1-2' },
-        ],
+        title: '余洋',
+        value: '101',
       },
       {
-        title: '0-0-2',
-        key: '0-0-2',
+        title: '顾娟',
+        value: 102,
+      },
+      {
+        title: '刘秀英',
+        value: '103',
       },
     ],
   },
   {
-    title: '0-1',
-    key: '0-1',
+    value: '2',
+    title: '班级-2',
     children: [
-      { title: '0-1-0-0', key: '0-1-0-0' },
-      { title: '0-1-0-1', key: '0-1-0-1' },
-      { title: '0-1-0-2', key: '0-1-0-2' },
+      {
+        title: '张三',
+        value: '200',
+      },
+      {
+        title: '李四',
+        value: '201',
+      },
     ],
-  },
-  {
-    title: '0-2',
-    key: '0-2',
   },
 ];
 
@@ -74,24 +69,24 @@ const WidgetWithForm = () => {
 
   return (
     <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
-      <ATree
+      <ATreeSelect
         name="demo4"
         label="节点"
         treeData={treeData}
-        initialValue={['0-0-1-0']}
+        initialValue={[{ value: 102 }]}
+        // initialValue={[102]}
         rules={[
           {
             required: true,
             message: ' ASelect!',
           },
         ]}
-        treeCheckParentStrictly
         widgetProps={{
           style: styles,
           placeholder: '请选择',
-          checkable: true,
-          checkStrictly: true,
-
+          multiple: true,
+          treeCheckable: true,
+          treeCheckStrictly: true,
           onChange,
         }}
       />

@@ -6,16 +6,13 @@ import { IBaseWidgetProps } from '../types';
 export interface ATreeProps extends IBaseWidgetProps, Omit<TreeNormalProps, 'value' | 'onChange'> {}
 
 const ATree: React.FC<ATreeProps> = props => {
-  const { name, label, formItemProps = {}, rules = [], initialValue = [], ...rest } = props;
+  const { name, label, formItemProps = {}, rules = [], initialValue, ...rest } = props;
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   return (
-    <Form.Item
-      name={name}
-      label={label}
-      rules={rules}
-      initialValue={initialValue}
-      {...formItemProps}
-    >
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
       <ATreeFormItem {...rest} />
     </Form.Item>
   );

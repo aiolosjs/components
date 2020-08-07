@@ -12,3 +12,4 @@ coverage
 .umi
 page
 tsconfig.tsbuildinfo
+src/form/**/demo/*.tsx

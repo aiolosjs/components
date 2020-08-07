@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Tree } from 'antd';
 import { TreeProps, TreeNodeNormal } from 'antd/lib/tree/Tree';
 import { EventDataNode } from 'antd/lib/tree';
 import omit from 'omit.js';
-
-const antIcon = <LoadingOutlined style={{ fontSize: 20 }} spin />;
 
 type Key = string | number;
 
@@ -126,7 +123,22 @@ const ATree: React.FC<TreeNormalProps> = ({
   }
 
   if (!treeData || treeData.length === 0) {
-    return <Spin indicator={antIcon} />;
+    // return <Spin indicator={antIcon} />;
+    return (
+      <div
+        style={{
+          color: 'rgba(0, 0, 0, 0.65)',
+          border: '1px solid #d9d9d9',
+          height: 32,
+          borderRadius: 2,
+          lineHeight: '32px',
+          paddingLeft: 15,
+          cursor: 'pointer',
+        }}
+      >
+        暂无数据
+      </div>
+    );
   }
 
   return (

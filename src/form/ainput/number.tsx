@@ -26,14 +26,12 @@ class Number extends React.PureComponent<AInputNumberProps> {
       widgetProps = {},
     } = this.props;
 
+    if (initialValue !== undefined) {
+      formItemProps.initialValue = initialValue;
+    }
+
     return (
-      <Form.Item
-        name={name}
-        label={label}
-        rules={rules}
-        initialValue={initialValue}
-        {...formItemProps}
-      >
+      <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
         <InputNumber {...widgetProps} />
       </Form.Item>
     );

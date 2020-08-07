@@ -26,14 +26,12 @@ class TextArea extends React.PureComponent<AInputTextAreaProps> {
       widgetProps = {},
     } = this.props;
 
+    if (initialValue !== undefined) {
+      formItemProps.initialValue = initialValue;
+    }
+
     return (
-      <Form.Item
-        name={name}
-        label={label}
-        rules={rules}
-        initialValue={initialValue}
-        {...formItemProps}
-      >
+      <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
         <Input.TextArea {...widgetProps} />
       </Form.Item>
     );

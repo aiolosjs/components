@@ -7,7 +7,7 @@ import { fetch } from '../../utils';
 import ATreeSelect, { ATreeSelectProps } from '../atreeselect';
 
 export interface ADynamicTreeSelectProps extends Omit<ATreeSelectProps, 'treeData'> {
-  action: string | null;
+  action: string | null | (() => string);
   asyncFn?: (action: string) => Promise<any[]>;
   formatter?: (value: any) => DataNode[];
   swrOptions?: ConfigInterface;
@@ -16,14 +16,19 @@ export interface ADynamicTreeSelectProps extends Omit<ATreeSelectProps, 'treeDat
 const ADynamicTreeSelect: React.FC<ADynamicTreeSelectProps> = ({
   name,
   label,
-  formItemProps,
+  formItemProps = {},
   action,
   asyncFn,
   formatter,
+  initialValue,
   widgetProps = {},
   swrOptions = {},
   ...rest
 }) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+
   const { data = [], isValidating } = useSWR<TreeNodeNormal[]>(
     action,
     asyncFn || fetch,

@@ -14,10 +14,15 @@ const ATimePicker: React.SFC<ATimePickerProps> = ({
   formItemProps = {},
   rules = [],
   initialValue,
-}) => (
-  <Form.Item name={name} label={label} initialValue={initialValue} rules={rules} {...formItemProps}>
-    <TimePicker {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <TimePicker {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ATimePicker;

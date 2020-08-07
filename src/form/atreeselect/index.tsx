@@ -8,16 +8,13 @@ export interface ATreeSelectProps
     Omit<TreeSelectNormalProps, 'value' | 'onChange'> {}
 
 const ATreeSelect: React.FC<ATreeSelectProps> = props => {
-  const { name, label, formItemProps = {}, rules = [], initialValue = [], ...rest } = props;
+  const { name, label, formItemProps = {}, initialValue, rules = [], ...rest } = props;
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   return (
-    <Form.Item
-      name={name}
-      label={label}
-      rules={rules}
-      initialValue={initialValue}
-      {...formItemProps}
-    >
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
       <ATreeSelectFormItem {...rest} />
     </Form.Item>
   );

@@ -28,11 +28,16 @@ const ADynamicAutoComplete: React.FC<ADynamicAutoCompleteProps> = ({
   throttleWait = 0,
   initialValue,
   widgetProps = {},
+  formItemProps = {},
   ...rest
 }) => {
   const { onSearch, ...restWidgeProps } = widgetProps;
   const [inputValue, setInputValue] = useState<string>('');
   const [dataSource, setDataSource] = useState<any>([]);
+
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   async function fetchData(searchValue: string) {
     let params = '';
@@ -51,7 +56,7 @@ const ADynamicAutoComplete: React.FC<ADynamicAutoCompleteProps> = ({
 
   useEffect(() => {
     (async () => {
-      if (initialValue) {
+      if (initialValue !== undefined) {
         const data = await fetchData(initialValue);
         setDataSource(data);
       }
@@ -88,8 +93,8 @@ const ADynamicAutoComplete: React.FC<ADynamicAutoCompleteProps> = ({
     <AAutoComplete
       name={name}
       options={dataSourceMemo}
-      initialValue={initialValue}
       widgetProps={{ onSearch: onSearchHandle, ...restWidgeProps }}
+      formItemProps={formItemProps}
       {...rest}
     />
   );

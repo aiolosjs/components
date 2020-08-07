@@ -15,7 +15,7 @@ const styles: React.CSSProperties = {
 };
 
 function formatter(node: any[]): DataNode[] {
-  return node.map((item) => {
+  return node.map(item => {
     const { title } = item;
 
     const result = {

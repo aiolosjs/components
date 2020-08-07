@@ -15,11 +15,9 @@ const styles: React.CSSProperties = {
   width: 300,
 };
 
-const mockVal = (str: string, repeat: number = 1) => {
-  return {
-    value: str.repeat(repeat),
-  };
-};
+const mockVal = (str: string, repeat: number = 1) => ({
+  value: str.repeat(repeat),
+});
 
 export default () => {
   const [form] = Form.useForm();
@@ -30,7 +28,7 @@ export default () => {
     if (!value || value.indexOf('@') >= 0) {
       res = [];
     } else {
-      res = ['gmail.com', '163.com', 'qq.com'].map((domain) => `${value}@${domain}`);
+      res = ['gmail.com', '163.com', 'qq.com'].map(domain => `${value}@${domain}`);
     }
     setResult(res);
   };

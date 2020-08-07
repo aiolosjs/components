@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button } from 'antd';
-import { ADynamicSelect } from '@aiolosjs/components';
+import { ADynamicTreeSelect } from '@aiolosjs/components';
 
 const layout = {
   labelCol: { span: 4 },
@@ -14,21 +14,8 @@ const styles: React.CSSProperties = {
 };
 
 export default () => {
-  const [form] = Form.useForm();
-
-  const [cityAction, setCityAction] = useState<string | null>(null);
-
-  function onProvinceChange(province: number | undefined) {
-    if (province) {
-      form.setFieldsValue({
-        city1: undefined,
-      });
-      setCityAction(`http://yapi.suxf.cn/mock/84/city?province=${province}`);
-    }
-  }
-
-  function onCityChange(city: number) {
-    console.log('city', city);
+  function onChange(value: any, option: any) {
+    console.log(value, option);
   }
 
   const onFinish = (values: any) => {
@@ -41,36 +28,21 @@ export default () => {
 
   return (
     <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
-      <ADynamicSelect
-        name="province"
-        label="省份"
-        action="http://yapi.suxf.cn/mock/84/province"
+      <ADynamicTreeSelect
+        name="demo3"
+        label="节点"
+        action="http://yapi.suxf.cn/mock/84/treeselect_node"
+        initialValue={null}
         rules={[
           {
             required: true,
-            message: ' 请选择省份',
+            message: ' 请选择节点!',
           },
         ]}
         widgetProps={{
           style: styles,
-          placeholder: '请选择省份',
-          onChange: onProvinceChange,
-        }}
-      />
-      <ADynamicSelect
-        name="city1"
-        label="城市"
-        action={cityAction}
-        rules={[
-          {
-            required: true,
-            message: '请选择城市',
-          },
-        ]}
-        widgetProps={{
-          style: styles,
-          placeholder: '请选择城市',
-          onChange: onCityChange,
+          placeholder: '请选择节点',
+          onChange,
         }}
       />
 

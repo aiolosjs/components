@@ -18,10 +18,15 @@ const ADateRangePicker: React.SFC<ADateRangePickerProps> = ({
   rules = [],
   initialValue,
   picker = 'date',
-}) => (
-  <Form.Item name={name} label={label} initialValue={initialValue} rules={rules} {...formItemProps}>
-    <RangePicker picker={picker} {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <RangePicker picker={picker} {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ADateRangePicker;

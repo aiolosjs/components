@@ -26,18 +26,23 @@ const ASelect: React.FC<ASelectProps> = ({
   selectOptions = [],
   widgetProps = {},
   formItemProps = {},
-  rules = [],
   initialValue,
-}) => (
-  <Form.Item name={name} label={label} rules={rules} initialValue={initialValue} {...formItemProps}>
-    <Select {...widgetProps}>
-      {selectOptions.map(({ key, value, disabled, ...rest }) => (
-        <Option key={key} value={key} disabled={disabled} {...rest}>
-          {value}
-        </Option>
-      ))}
-    </Select>
-  </Form.Item>
-);
+  rules = [],
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <Select {...widgetProps}>
+        {selectOptions.map(({ key, value, disabled, ...rest }) => (
+          <Option key={key} value={key} disabled={disabled} {...rest}>
+            {value}
+          </Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
 
 export default ASelect;

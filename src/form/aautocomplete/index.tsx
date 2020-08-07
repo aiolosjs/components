@@ -21,13 +21,16 @@ const AAutoComplete: React.FC<AAutoCompleteProps> & staticComponent = ({
   children,
   widgetProps = {},
   formItemProps = {},
-  rules = [],
   initialValue,
+  rules = [],
 }) => {
   Object.assign(formItemProps, {
     rules,
-    initialValue,
   });
+
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
 
   const { ...rest } = widgetProps;
 

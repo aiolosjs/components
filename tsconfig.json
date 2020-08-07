@@ -11,7 +11,7 @@
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
-    "emitDeclarationOnly":true,
+    "emitDeclarationOnly": true,
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"]
@@ -19,7 +19,7 @@
 
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src","./typings.d.ts"],
+  "include": ["./src", "./typings.d.ts"],
 
-  "exclude": ["node_modules", "lib", "es", "dist",  "**/__test__", "test"]
+  "exclude": ["node_modules", "lib", "es", "dist", "**/__test__", "test"]
 }

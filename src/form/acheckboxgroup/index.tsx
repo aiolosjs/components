@@ -16,10 +16,15 @@ const ACheckboxGroup: React.FC<ACheckboxGroupProps> = ({
   formItemProps = {},
   rules = [],
   initialValue,
-}) => (
-  <Form.Item name={name} label={label} rules={rules} initialValue={initialValue} {...formItemProps}>
-    <Checkbox.Group options={checkboxOptions} {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <Checkbox.Group options={checkboxOptions} {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ACheckboxGroup;

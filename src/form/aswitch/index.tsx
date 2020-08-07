@@ -14,17 +14,15 @@ const ASwitch: React.SFC<ASwitchProps> = ({
   formItemProps = {},
   rules = [],
   initialValue,
-}) => (
-  <Form.Item
-    name={name}
-    label={label}
-    rules={rules}
-    initialValue={initialValue}
-    valuePropName="checked"
-    {...formItemProps}
-  >
-    <Switch {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} valuePropName="checked" {...formItemProps}>
+      <Switch {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ASwitch;

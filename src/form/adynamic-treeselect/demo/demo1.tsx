@@ -14,8 +14,6 @@ const styles: React.CSSProperties = {
 };
 
 export default () => {
-  const [form] = Form.useForm();
-
   function onChange(value: any, option: any) {
     console.log(value, option);
   }
@@ -34,7 +32,7 @@ export default () => {
         name="demo1"
         label="节点"
         action="http://yapi.suxf.cn/mock/84/treeselect_node"
-        initialValue={102}
+        initialValue={null}
         rules={[
           {
             required: true,

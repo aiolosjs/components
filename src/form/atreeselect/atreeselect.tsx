@@ -10,7 +10,6 @@ export interface TreeSelectNormalProps {
   value?: Key | Key[];
   onChange?: (value: Key | Key[]) => void;
   treeData: undefined | DataNode[];
-  treeCheckParentStrictly?: boolean;
   widgetProps?: Omit<TreeSelectProps<DataNode>, 'treeData' | 'value'>;
 }
 

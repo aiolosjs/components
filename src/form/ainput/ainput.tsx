@@ -29,14 +29,12 @@ class AInput extends React.Component<AInputProps> {
       formItemProps = {},
       widgetProps = {},
     } = this.props;
+
+    if (initialValue !== undefined) {
+      formItemProps.initialValue = initialValue;
+    }
     return (
-      <Form.Item
-        name={name}
-        label={label}
-        rules={rules}
-        initialValue={initialValue}
-        {...formItemProps}
-      >
+      <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
         <Input {...widgetProps} />
       </Form.Item>
     );

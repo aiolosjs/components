@@ -13,11 +13,9 @@ const styles: React.CSSProperties = {
   width: 300,
 };
 
-const mockVal = (str: string, repeat: number = 1) => {
-  return {
-    value: str.repeat(repeat),
-  };
-};
+const mockVal = (str: string, repeat: number = 1) => ({
+  value: str.repeat(repeat),
+});
 
 export default () => {
   const [form] = Form.useForm();

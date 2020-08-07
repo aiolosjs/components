@@ -13,13 +13,18 @@ const ACascader: React.FC<ACascaderProps> = ({
   label,
   selectOptions = [],
   widgetProps = {},
+  initialValue,
   formItemProps = {},
   rules = [],
-  initialValue,
-}) => (
-  <Form.Item name={name} rules={rules} label={label} initialValue={initialValue} {...formItemProps}>
-    <Cascader options={selectOptions} {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} rules={rules} label={label} {...formItemProps}>
+      <Cascader options={selectOptions} {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ACascader;

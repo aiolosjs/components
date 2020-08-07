@@ -8,13 +8,24 @@ const rule = {
 
 class Phone extends React.PureComponent<AInputProps> {
   render() {
-    const { name, widgetProps = {}, rules = [], ...rest } = this.props;
+    const {
+      name,
+      widgetProps = {},
+      initialValue,
+      formItemProps = {},
+      rules = [],
+      ...rest
+    } = this.props;
     const phoneRules = [rule, ...rules];
+    if (initialValue !== undefined) {
+      formItemProps.initialValue = initialValue;
+    }
 
     return (
       <AInput
         name={name}
         rules={phoneRules}
+        formItemProps={formItemProps}
         widgetProps={{ maxLength: 11, ...widgetProps }}
         {...rest}
       />

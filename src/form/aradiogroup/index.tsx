@@ -17,10 +17,15 @@ const ARadioGroup: React.FC<ARadioGroupProps> = ({
   formItemProps = {},
   rules = [],
   initialValue,
-}) => (
-  <Form.Item name={name} label={label} rules={rules} initialValue={initialValue} {...formItemProps}>
-    <Radio.Group options={radioOptions} {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <Radio.Group options={radioOptions} {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ARadioGroup;

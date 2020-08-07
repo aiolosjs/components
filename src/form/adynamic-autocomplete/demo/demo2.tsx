@@ -26,9 +26,7 @@ export default () => {
     });
   }
 
-  const formatter = (data: [] = []) => {
-    return data.map((v) => ({ value: v }));
-  };
+  const formatter = (data: [] = []) => data.map(v => ({ value: v }));
 
   const onFinish = (values: any) => {
     console.log('Success:', values);

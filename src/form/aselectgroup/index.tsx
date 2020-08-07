@@ -25,20 +25,25 @@ const ASelectGroup: React.FC<ASelectOptGroupProps> = ({
   formItemProps = {},
   rules = [],
   initialValue,
-}) => (
-  <Form.Item name={name} rules={rules} initialValue={initialValue} label={label} {...formItemProps}>
-    <Select {...widgetProps}>
-      {selectOptions.map(item => (
-        <OptGroup label={item.label} key={item.key}>
-          {item.children.map(({ key, value, disabled, ...rest }) => (
-            <Option key={key} value={key} disabled={disabled} {...rest}>
-              {value}
-            </Option>
-          ))}
-        </OptGroup>
-      ))}
-    </Select>
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} rules={rules} label={label} {...formItemProps}>
+      <Select {...widgetProps}>
+        {selectOptions.map(item => (
+          <OptGroup label={item.label} key={item.key}>
+            {item.children.map(({ key, value, disabled, ...rest }) => (
+              <Option key={key} value={key} disabled={disabled} {...rest}>
+                {value}
+              </Option>
+            ))}
+          </OptGroup>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
 
 export default ASelectGroup;

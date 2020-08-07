@@ -16,10 +16,15 @@ const ADatePicker: React.SFC<ADatePickerProps> = ({
   rules = [],
   initialValue,
   picker = 'date',
-}) => (
-  <Form.Item name={name} label={label} initialValue={initialValue} rules={rules} {...formItemProps}>
-    <DatePicker picker={picker} {...widgetProps} />
-  </Form.Item>
-);
+}) => {
+  if (initialValue !== undefined) {
+    formItemProps.initialValue = initialValue;
+  }
+  return (
+    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <DatePicker picker={picker} {...widgetProps} />
+    </Form.Item>
+  );
+};
 
 export default ADatePicker;
