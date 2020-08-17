@@ -8,11 +8,18 @@ export default defineConfig({
     { title: 'v1.x', path: 'http://v1.aiolosjs.suxf.cn' },
     { title: 'GitHub', path: 'https://github.com/aiolosjs/components.git' },
   ],
-  antd: {
-    dark: false,
-  },
   locales: [
     ['zh-CN', '中文'],
     ['en-US', 'English'],
+  ],
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+      },
+    ],
   ],
 });
