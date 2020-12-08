@@ -47,12 +47,6 @@ const WidgetWithForm = () => {
           multiple: true,
           action: 'http://yapi.suxf.cn/mock/84/upload',
           listType: 'picture-card',
-
-          showUploadList: {
-            showPreviewIcon: false,
-            showRemoveIcon: false,
-            showDownloadIcon: false,
-          },
         }}
       />
 

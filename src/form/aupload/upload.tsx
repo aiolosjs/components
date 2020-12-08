@@ -126,7 +126,7 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
   const lightBoxRef = useRef<any>();
   const inputRef = useRef<any>();
 
-  const { listType = 'picture', ...widgetPropsRest } = widgetProps;
+  const { listType = 'picture', showUploadList, ...widgetPropsRest } = widgetProps;
   const uploadRestProps = omit(widgetPropsRest, [
     'onChange',
     'onRemove',
@@ -321,6 +321,11 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
         onChange={handleChange}
         itemRender={handleitemRender}
         ref={inputRef}
+        showUploadList={
+          single
+            ? { showPreviewIcon: false, showRemoveIcon: false, showDownloadIcon: false }
+            : showUploadList
+        }
         {...uploadRestProps}
       >
         {single && memoFileList.length > 0 ? null : renderUploadButton()}
