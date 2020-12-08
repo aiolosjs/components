@@ -65,6 +65,8 @@ const WidgetWithForm = () => {
           placeholder: '请选择',
           allowClear: true,
           onChange,
+          showSearch: true,
+          optionFilterProp: 'title',
         }}
       />
 

@@ -1,6 +1,6 @@
 {
   "name": "@aiolosjs/components",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "antd form library",
   "keywords": [
     "antd form",
@@ -42,7 +42,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@umijs/hooks": "^1.9.2",
-    "antd": "^4.5.2",
+    "antd": "^4.9.1",
     "lightbox-component2": "^1.2.0",
     "omit.js": "^1.0.2",
     "react": "^16.12.0",

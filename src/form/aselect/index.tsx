@@ -9,7 +9,7 @@ type Key = string | number;
 
 export interface SelectOptionsProps {
   key: Key;
-  value: Key;
+  value: string;
   disabled?: boolean;
   [k: string]: any;
 }
@@ -36,7 +36,7 @@ const ASelect: React.FC<ASelectProps> = ({
     <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
       <Select {...widgetProps}>
         {selectOptions.map(({ key, value, disabled, ...rest }) => (
-          <Option key={key} value={key} disabled={disabled} {...rest}>
+          <Option key={key} value={key} title={value} disabled={disabled} {...rest}>
             {value}
           </Option>
         ))}

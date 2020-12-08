@@ -40,7 +40,7 @@ const WidgetWithForm = () => {
           },
         ]}
         maxFileSize={1}
-        maxFileCount={400}
+        maxFileCount={1}
         widgetProps={{
           style: styles,
           placeholder: '请选择',

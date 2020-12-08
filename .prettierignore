@@ -17,4 +17,9 @@ LICENSE
 *.lock
 yarn-error.log
 .history
+/doc
+/es
+/lib
+.vscode
+.umi
 
