@@ -19,7 +19,7 @@ const ASwitch: React.SFC<ASwitchProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} label={label} rules={rules} valuePropName="checked" {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules} valuePropName="checked">
       <Switch {...widgetProps} />
     </Form.Item>
   );

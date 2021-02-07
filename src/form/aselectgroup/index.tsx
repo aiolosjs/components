@@ -30,7 +30,7 @@ const ASelectGroup: React.FC<ASelectOptGroupProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} rules={rules} label={label} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} rules={rules} label={label}>
       <Select {...widgetProps}>
         {selectOptions.map(item => (
           <OptGroup label={item.label} key={item.key}>

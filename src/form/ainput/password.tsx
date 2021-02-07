@@ -29,7 +29,7 @@ class Password extends React.PureComponent<AInputPasswordProps> {
       formItemProps.initialValue = initialValue;
     }
     return (
-      <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
         <Input.Password {...widgetProps} />
       </Form.Item>
     );

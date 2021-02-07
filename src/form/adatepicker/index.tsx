@@ -21,7 +21,7 @@ const ADatePicker: React.SFC<ADatePickerProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <DatePicker picker={picker} {...widgetProps} />
     </Form.Item>
   );

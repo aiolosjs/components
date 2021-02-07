@@ -19,7 +19,7 @@ const ATimePicker: React.SFC<ATimePickerProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <TimePicker {...widgetProps} />
     </Form.Item>
   );

@@ -33,7 +33,7 @@ const ASelect: React.FC<ASelectProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <Select {...widgetProps}>
         {selectOptions.map(({ key, value, disabled, ...rest }) => (
           <Option key={key} value={key} title={value} disabled={disabled} {...rest}>

@@ -35,7 +35,7 @@ const AAutoComplete: React.FC<AAutoCompleteProps> & staticComponent = ({
   const { ...rest } = widgetProps;
 
   return (
-    <Form.Item name={name} label={label} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label}>
       {React.isValidElement(children) ? (
         <AutoComplete options={options} {...rest}>
           {children as React.ReactElement}

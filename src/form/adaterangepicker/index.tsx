@@ -23,7 +23,7 @@ const ADateRangePicker: React.SFC<ADateRangePickerProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <RangePicker picker={picker} {...widgetProps} />
     </Form.Item>
   );

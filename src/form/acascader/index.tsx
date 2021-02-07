@@ -21,7 +21,7 @@ const ACascader: React.FC<ACascaderProps> = ({
     formItemProps.initialValue = initialValue;
   }
   return (
-    <Form.Item name={name} rules={rules} label={label} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} rules={rules} label={label}>
       <Cascader options={selectOptions} {...widgetProps} />
     </Form.Item>
   );

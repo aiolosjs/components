@@ -12,7 +12,7 @@ const ATree: React.FC<ATreeProps> = props => {
   }
 
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <ATreeFormItem {...rest} />
     </Form.Item>
   );

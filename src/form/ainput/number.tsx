@@ -31,7 +31,7 @@ class Number extends React.PureComponent<AInputNumberProps> {
     }
 
     return (
-      <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+      <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
         <InputNumber {...widgetProps} />
       </Form.Item>
     );

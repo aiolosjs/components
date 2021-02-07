@@ -14,7 +14,7 @@ const ATreeSelect: React.FC<ATreeSelectProps> = props => {
   }
 
   return (
-    <Form.Item name={name} label={label} rules={rules} {...formItemProps}>
+    <Form.Item {...formItemProps} name={name} label={label} rules={rules}>
       <ATreeSelectFormItem {...rest} />
     </Form.Item>
   );
