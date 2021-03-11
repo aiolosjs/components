@@ -40,7 +40,7 @@ const WidgetWithForm = () => {
             message: '请上传图片!',
           },
         ]}
-        maxFileCount={2}
+        maxFileCount={1}
         widgetProps={{
           style: styles,
           placeholder: '请选择',

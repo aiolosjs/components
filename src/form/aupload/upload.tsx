@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, ReactElement } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Upload, Button, Modal, message } from 'antd';
 import { PlusOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { UploadProps, UploadChangeParam } from 'antd/lib/upload';
@@ -35,7 +35,10 @@ const isImageFileType = (type: string): boolean => type.indexOf('image/') === 0;
 const isLtMaxFileCount: (fileCount: number, maxFileCount: number) => boolean = (
   fileCount,
   maxFileCount,
-) => fileCount <= maxFileCount;
+) => {
+  if (maxFileCount === 1) return true;
+  return fileCount <= maxFileCount;
+};
 
 const isImageUrl = (file: UploadFile): boolean => {
   if (file.type) {
@@ -105,7 +108,6 @@ export interface UploadFormItemProps {
   maxFileSize?: number;
   maxFileCount?: number;
   customUploadBtn?: React.ReactNode;
-  single?: boolean;
   widgetProps?: Omit<UploadProps<any>, 'value'>;
 }
 
@@ -115,7 +117,6 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
   maxFileSize = 10,
   maxFileCount = 10,
   customUploadBtn,
-  single = false,
   widgetProps = {},
 }) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -124,9 +125,8 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
   const isInitValueComplete = useRef(false);
   const fileListRealLen = useRef(0);
   const lightBoxRef = useRef<any>();
-  const inputRef = useRef<any>();
 
-  const { listType = 'picture', showUploadList, ...widgetPropsRest } = widgetProps;
+  const { listType = 'picture', ...widgetPropsRest } = widgetProps;
   const uploadRestProps = omit(widgetPropsRest, [
     'onChange',
     'onRemove',
@@ -195,7 +195,7 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
         reject();
       }
 
-      if (!isLtMaxFileCount(fileListRealLen.current, maxFileCount) && !single) {
+      if (!isLtMaxFileCount(fileListRealLen.current, maxFileCount)) {
         fileListRealLen.current -= 1;
         file.errorFlag = true;
         message.warning(`文件${file.name}不能上传,最多上传${maxFileCount}张`);
@@ -225,19 +225,15 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
   };
 
   const handleChange = (info: UploadChangeParam<UploadFile & FileFlagProps>) => {
-    let { fileList: newFileList, file } = info;
+    const { fileList: newFileList, file } = info;
 
     if (file.errorFlag) return;
 
     if (file.status === 'error') {
       message.error(`文件${file.name}上传失败!`);
     }
-
-    if (single) {
-      newFileList = newFileList.splice(-1);
-    }
-
-    triggerChange({ ...info, fileList: newFileList });
+    fileListRealLen.current = newFileList.length;
+    triggerChange(info);
     setFileList(newFileList);
   };
 
@@ -256,7 +252,7 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
       );
     }
 
-    if (listType === 'picture-card' || single) {
+    if (listType === 'picture-card') {
       if (customUploadBtn) {
         return customUploadBtn;
       }
@@ -269,26 +265,6 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
     }
 
     return null;
-  };
-
-  const handleitemRender = (
-    originNode: ReactElement,
-    file: UploadFile,
-    currFileList?: Array<UploadFile<any>>,
-  ) => {
-    if (!single) return originNode;
-    return (
-      <div
-        style={{ width: 104, height: 104, cursor: 'pointer' }}
-        onClick={() => {
-          if (inputRef.current) {
-            inputRef.current.upload.uploader.onClick();
-          }
-        }}
-      >
-        {originNode}
-      </div>
-    );
   };
 
   const renderImageFunc = (
@@ -319,16 +295,10 @@ const AUploadFormItem: React.FC<UploadFormItemProps> = ({
         onPreview={onPreview}
         beforeUpload={beforeUpload}
         onChange={handleChange}
-        itemRender={handleitemRender}
-        ref={inputRef}
-        showUploadList={
-          single
-            ? { showPreviewIcon: false, showRemoveIcon: false, showDownloadIcon: false }
-            : showUploadList
-        }
         {...uploadRestProps}
+        maxCount={maxFileCount}
       >
-        {single && memoFileList.length > 0 ? null : renderUploadButton()}
+        {renderUploadButton()}
       </Upload>
       {carouserImages.length > 0 ? (
         <Lightbox

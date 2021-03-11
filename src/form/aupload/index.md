@@ -49,4 +49,3 @@ nav:
 | maxFileSize | 文件上传最大数量, 默认10M | number              | false    |
 | maxFileCount | 文件上传最大size, 默认10 | number              | false    |
 | customUploadBtn | 自定义上传按钮 | React. ReactNode              | false    |
-| single | 只上传单张图片 | boolean              | false    |
