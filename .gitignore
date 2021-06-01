@@ -1,4 +1,4 @@
-yarn.lock
+
 dist
 doc
 docs
@@ -17,3 +17,4 @@ coverage
 page
 lerna-debug.log
 dist.tar.gz
+yarn-error.log
