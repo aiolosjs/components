@@ -31,8 +31,8 @@ export default () => {
       <ADynamicTree
         name="demo1"
         label="节点"
-        action="http://yapi.suxf.cn/mock/84/tree_node"
-        initialValue={['102']}
+        action="http://yapi.yunxiaowei.cn/mock/60/tree_node"
+        initialValue={[101]}
         rules={[
           {
             required: true,

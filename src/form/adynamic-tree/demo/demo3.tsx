@@ -23,7 +23,7 @@ export default () => {
       form.setFieldsValue({
         city1: undefined,
       });
-      setCityAction(`http://yapi.suxf.cn/mock/84/city?province=${province}`);
+      setCityAction(`http://yapi.yunxiaowei.cn/mock/60/city?province=${province}`);
     }
   }
 
@@ -44,7 +44,7 @@ export default () => {
       <ADynamicSelect
         name="province"
         label="省份"
-        action="http://yapi.suxf.cn/mock/84/province"
+        action="http://yapi.yunxiaowei.cn/mock/60/province"
         rules={[
           {
             required: true,

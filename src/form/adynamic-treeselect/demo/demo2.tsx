@@ -15,7 +15,7 @@ const styles: React.CSSProperties = {
 };
 
 function formatter(node: any[]): DataNode[] {
-  return node.map(item => {
+  return node.map((item) => {
     const { title } = item;
 
     const result = {
@@ -52,8 +52,8 @@ export default () => {
       <ADynamicTreeSelect
         name="demo2"
         label="节点"
-        action="http://yapi.suxf.cn/mock/84/treeselect_node"
-        initialValue={102}
+        action="http://yapi.yunxiaowei.cn/mock/60/treeselect_node"
+        initialValue={1010}
         formatter={formatter}
         rules={[
           {

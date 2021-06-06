@@ -28,7 +28,7 @@ export default () => {
     console.log('Failed:', errorInfo);
   };
 
-  const formatter = (data: [] = []) => data.map(v => ({ value: v }));
+  const formatter = (data: [] = []) => data.map((v) => ({ value: v }));
 
   return (
     <Form onFinish={onFinish} onFinishFailed={onFinishFailed} {...layout}>
@@ -44,7 +44,7 @@ export default () => {
         ]}
         loadDataOption={{
           queryKey: 'id',
-          action: 'http://yapi.rebornauto.cn/mock/39/autocomplete',
+          action: 'http://yapi.yunxiaowei.cn/mock/60/autocomplete',
         }}
         widgetProps={{
           style: styles,

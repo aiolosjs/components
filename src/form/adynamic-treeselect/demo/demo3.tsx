@@ -31,7 +31,7 @@ export default () => {
       <ADynamicTreeSelect
         name="demo3"
         label="节点"
-        action="http://yapi.suxf.cn/mock/84/treeselect_node"
+        action="http://yapi.yunxiaowei.cn/mock/60/treeselect_node"
         initialValue={null}
         rules={[
           {

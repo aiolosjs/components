@@ -33,7 +33,7 @@ export default () => {
       <ADynamicSelect
         name="name1"
         label="姓名"
-        action="http://yapi.suxf.cn/mock/84/dic"
+        action="http://yapi.yunxiaowei.cn/mock/60/dic"
         rules={[
           {
             required: true,

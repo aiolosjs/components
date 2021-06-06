@@ -52,7 +52,7 @@ const WidgetWithForm = () => {
       <ADynamicSelectGroup
         name="name2"
         label="姓名"
-        action="http://yapi.rebornauto.cn/mock/39/selectGroup"
+        action="http://yapi.yunxiaowei.cn/mock/60/selectGroup"
         rules={[
           {
             required: true,

@@ -41,9 +41,9 @@ const WidgetWithForm = () => {
           },
         ]}
         loadDataOptions={[
-          { action: 'http://yapi.rebornauto.cn/mock/39/province_1' },
-          { action: 'http://yapi.rebornauto.cn/mock/39/city_1', queryKey: 'id' },
-          { action: 'http://yapi.rebornauto.cn/mock/39/region_1', queryKey: 'id' },
+          { action: 'http://yapi.yunxiaowei.cn/mock/60/province_1' },
+          { action: 'http://yapi.yunxiaowei.cn/mock/60/city_1', queryKey: 'id' },
+          { action: 'http://yapi.yunxiaowei.cn/mock/60/region_1', queryKey: 'id' },
         ]}
         widgetProps={{
           style: styles,

@@ -51,7 +51,7 @@ const WidgetWithForm = () => {
           style: styles,
           placeholder: '请选择',
           multiple: true,
-          action: 'http://yapi.suxf.cn/mock/84/upload',
+          action: 'http://yapi.yunxiaowei.cn/mock/60/upload',
           listType: 'picture-card',
         }}
       />
